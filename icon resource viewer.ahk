@@ -12,7 +12,7 @@ gui, add, edit, vindex gload, index
 gui, add, picture, vicon
 gui, add, button, ys-1 vhelp_filename ghelp_filename %BS_NOTIFY%, ?
 gui, add, button, y+8 vhelp_index ghelp_index %BS_NOTIFY%, ?
-gui, show, w298, Icon Resource Viewer
+gui, show,, Icon Resource Viewer
 
 hotkey, ifwinactive, ahk_id %hwnd%
 hotkey, ~down, down

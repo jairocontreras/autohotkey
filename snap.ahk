@@ -34,10 +34,11 @@ extend("vertical")
 return
 
 snap_h(key) {
-  winget, dwstyle, style, a
+  winexist("a")
+  winget, dwstyle, style
   if dwstyle & WS_SIZEBOX
   {
-    wingetpos,, y1,, h1, a
+    wingetpos,, y1,, h1
     h1 -= 7
     if (key = "left")
       x = 0
@@ -56,10 +57,11 @@ snap_h(key) {
 }
 
 snap_v(key) {
-  winget, dwstyle, style, a
+  winexist("a")
+  winget, dwstyle, style
   if dwstyle & WS_SIZEBOX
   {
-    wingetpos, x1,, w1,, a
+    wingetpos, x1,, w1
     x1 += 7
     w1 -= 14
     if (w1 <= w_half and x1+w1 = a_screenwidth)
@@ -79,7 +81,8 @@ snap_v(key) {
 }
 
 extend(direction) {
-  winget, dwstyle, style, a
+  winexist("a")
+  winget, dwstyle, style
   if dwstyle & WS_SIZEBOX
   {
     if (direction = "horizontal") {
@@ -87,12 +90,12 @@ extend(direction) {
       w = %a_screenwidth%
       x -= 7
       w += 14
-      winmove, a,, x,, w
+      winmove,,, x,, w
     }
     else {
       h = %desktop_h%
       h += 7
-      winmove, a,,, 0,, h
+      winmove,,,, 0,, h
     }
   }
 }

@@ -18,8 +18,9 @@ hookproc(hwineventhook, event) {
   global dwstyle, h, minmax, w, x, y
   if event = 8 ; EVENT_SYSTEM_CAPTURESTART
   {
-    winget, dwstyle, style, a
-    wingetpos, x, y, w, h, a
+    winexist("a")
+    winget, dwstyle, style
+    wingetpos, x, y, w, h
     if dwstyle & WS_SIZEBOX
     {
       x += 7
@@ -33,10 +34,10 @@ hookproc(hwineventhook, event) {
     }
   }
   else if event = 10 ; EVENT_SYSTEM_MOVESIZESTART
-    winget, minmax, minmax, a
+    winget, minmax, minmax
   else if event = 11 ; EVENT_SYSTEM_MOVESIZEEND
   {
-    wingetpos, x1, y1, w1, h1, a
+    wingetpos, x1, y1, w1, h1
     if dwstyle & WS_SIZEBOX
     {
       x1 += 7
@@ -52,7 +53,7 @@ hookproc(hwineventhook, event) {
     ; window move
     mousegetpos,, mouse_y
     if (((w1 = w and h1 = h) or minmax = 1) and dwstyle & WS_MAXIMIZEBOX and mouse_y = 0 and getkeystate("shift")) {
-      winmaximize a
+      winmaximize
       exit
     }
     ; window resize
@@ -96,7 +97,7 @@ hookproc(hwineventhook, event) {
       w1 += 4
       h1 += 2
     }
-    winmove, a,, x1, y1, w1, h1
+    winmove,,, x1, y1, w1, h1
   }
 }
 
