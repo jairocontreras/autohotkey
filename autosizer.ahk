@@ -1,6 +1,10 @@
 #persistent
 setbatchlines -1
 
+; scheduled task
+detecthiddenwindows on
+setworkingdir %a_scriptdir%
+
 menu, tray, tip, AutoSizer
 menu, tray, nostandard
 menu, tray, add, Edit
@@ -15,10 +19,15 @@ return
 shellmessage(wparam, lparam) {
   if wparam = 1 ; HSHELL_WINDOWCREATED
   {
-    winwait ahk_id %lparam%
-    winget, process, processname
-    fileread, contents, apps.txt
+    winget, process, processname, ahk_id %lparam%
     exe := substr(process, 1, strlen(process)-4)
+    if exe = StartMenuExperienceHost
+    {
+      detecthiddenwindows off
+      exit
+    }
+    winwait ahk_id %lparam%
+    fileread, contents, apps.txt
     apps := strreplace(contents, "`r`n", ",")
     if exe in %apps%
     {
