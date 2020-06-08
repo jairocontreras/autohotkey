@@ -10,6 +10,15 @@ menu, tray, nostandard
 menu, tray, add, Edit
 menu, tray, add, Exit
 
+filename = apps.txt
+attribute := fileexist(filename)
+if !attribute
+{
+  fileappend,, %filename%
+  msgbox,, AutoSizer, A text file named "apps" was created. You may add one executable filename per line.
+  run explorer %filename%
+}
+
 gui +hwndhwnd
 dllcall("RegisterShellHookWindow", uint, hwnd)
 msgnumber := dllcall("RegisterWindowMessage", str, "shellhook")
@@ -27,14 +36,20 @@ shellmessage(wparam, lparam) {
       exit
     }
     winwait ahk_id %lparam%
-    fileread, contents, apps.txt
+    global filename
+    fileread, contents, %filename%
     apps := strreplace(contents, "`r`n", ",")
     if exe in %apps%
     {
+      wingetclass class
       if exe = explorer
       {
-        wingetclass class
         if class != cabinetwclass
+          exit
+      }
+      if exe = notepad++
+      {
+        if class = nppprogressclass
           exit
       }
       x = 0
@@ -50,7 +65,7 @@ shellmessage(wparam, lparam) {
 }
 
 edit:
-run explorer apps.txt
+run explorer %filename%
 return
 
 exit:
