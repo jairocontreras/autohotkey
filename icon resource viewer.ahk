@@ -9,7 +9,7 @@ gui +hwndhwnd +minsize298x114 +maxsizex114 +resize
 gui, margin,, 10
 gui, add, edit, section vfilename gload, filename
 gui, add, edit, vindex gload, index
-gui, add, picture, vicon
+gui, add, picture, w32 h32 vicon
 gui, add, button, ys-1 vhelp_filename ghelp_filename %BS_NOTIFY%, ?
 gui, add, button, y+8 vhelp_index ghelp_index %BS_NOTIFY%, ?
 gui, show,, Icon Resource Viewer
@@ -45,8 +45,7 @@ if filename contains .
   {
     if index > -1
       index += 1
-    ; if size is not specified then icon shrinks e.g. switch from imageres.dll,68 to inetcpl.cpl,59
-    guicontrol,, icon, *w32 *h32 *icon%index% %filename%
+    guicontrol,, icon, *icon%index% %filename%
     guicontrol, show, icon
   }
   else
