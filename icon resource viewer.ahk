@@ -45,7 +45,7 @@ if filename contains .
   {
     if index > -1
       index += 1
-    guicontrol,, icon, *icon%index% %filename%
+    guicontrol,, icon, *icon%index% %filename% ; index represents group
     guicontrol, show, icon
   }
   else

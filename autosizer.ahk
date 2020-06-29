@@ -15,7 +15,7 @@ attribute := fileexist(filename)
 if !attribute
 {
   fileappend,, %filename%
-  msgbox,, AutoSizer, A text file named "apps" was created. You may add one executable filename per line.
+  msgbox,, AutoSizer, A text file named 'apps' was automatically created.`nAdd one executable filename per line.
   run explorer %filename%
 }
 
