@@ -6,9 +6,11 @@ menu, tray, tip, Workspace
 menu, tray, nostandard
 menu, tray, add, Exit
 
+sysget, n, monitorworkarea
+
 global WS_MAXIMIZEBOX = 0x10000
 global WS_SIZEBOX = 0x40000
-global desktop_h := a_screenheight-40
+global nbottom
 
 hookprocadr := registercallback("hookproc", "f")
 hwineventhook := setwineventhook(0x1, 0x17, 0, hookprocadr, 0, 0, 0)
@@ -57,8 +59,8 @@ hookproc(hwineventhook, event) {
       exit
     }
     ; window resize
-    if (h1 > desktop_h)
-      h1 -= h1 - desktop_h
+    if (h1 > nbottom)
+      h1 -= h1 - nbottom
     ; left edge
     ; window move (restore to screen)
     if x1 < 0
@@ -79,12 +81,12 @@ hookproc(hwineventhook, event) {
       w1 -= diff_x
     ; bottom edge (taskbar)
     y1_bottom := y1 + h1
-    diff_y := y1_bottom - desktop_h
+    diff_y := y1_bottom - nbottom
     ; window move (restore)
-    if (h1 <= h and y1_bottom > desktop_h) ; h1 < h drag from maximize
+    if (h1 <= h and y1_bottom > nbottom) ; h1 < h drag from maximize
       y1 -= diff_y
     ; window resize (stretch)
-    if (h1 > h and y1 = y and y1_bottom > desktop_h-8)
+    if (h1 > h and y1 = y and y1_bottom > nbottom-8)
       h1 -= diff_y
     if dwstyle & WS_SIZEBOX
     {

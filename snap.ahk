@@ -2,10 +2,12 @@ menu, tray, tip, Snap
 menu, tray, nostandard
 menu, tray, add, Exit
 
+sysget, n, monitorworkarea
+
 global WS_SIZEBOX = 0x40000
-global desktop_h := a_screenheight-40
-global h_half := desktop_h/2
+global h_half := nbottom/2
 global w_half := a_screenwidth/2
+global nbottom
 
 #left::
 snap_h("left")
@@ -44,14 +46,14 @@ snap_h(key) {
       x = 0
     else
       x = %w_half%
-    if (h1 <= h_half and y1+h1 = desktop_h)
+    if (h1 <= h_half and y1+h1 = nbottom)
       y = %h_half%
     else
       y = 0
-    if (h1 <= h_half and (y1 = 0 or y1+h1 = desktop_h))
+    if (h1 <= h_half and (y1 = 0 or y1+h1 = nbottom))
       h = %h_half%
     else
-      h = %desktop_h%
+      h = %nbottom%
     winmove(x, y, w_half, h)
   }
 }
@@ -93,7 +95,7 @@ extend(direction) {
       winmove,,, x,, w
     }
     else {
-      h = %desktop_h%
+      h = %nbottom%
       h += 7
       winmove,,,, 0,, h
     }
