@@ -10,6 +10,9 @@ menu, tray, nostandard
 menu, tray, add, Edit
 menu, tray, add, Exit
 
+sysget, n, monitorworkarea
+global nbottom
+
 filename = apps.txt
 attribute := fileexist(filename)
 if !attribute
@@ -35,8 +38,8 @@ shellmessage(wparam, lparam) {
       detecthiddenwindows off
       exit
     }
-    winwait ahk_id %lparam%
     global filename
+    winwait ahk_id %lparam%
     fileread, contents, %filename%
     apps := strreplace(contents, "`r`n", ",")
     if exe in %apps%
@@ -54,7 +57,7 @@ shellmessage(wparam, lparam) {
       }
       x = 0
       w = %a_screenwidth%
-      h := a_screenheight-40
+      h = %nbottom%
       x -= 7
       w += 14
       h += 7
