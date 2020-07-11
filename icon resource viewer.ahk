@@ -9,7 +9,7 @@ gui +hwndhwnd +minsize298x114 +maxsizex114 +resize
 gui, margin,, 10
 gui, add, edit, section vfilename gload, filename
 gui, add, edit, vindex gload, index
-gui, add, picture, w32 h32 vicon
+gui, add, picture, vicon
 gui, add, button, ys-1 vhelp_filename ghelp_filename %BS_NOTIFY%, ?
 gui, add, button, y+8 vhelp_index ghelp_index %BS_NOTIFY%, ?
 gui, show,, Icon Resource Viewer
@@ -45,7 +45,7 @@ if filename contains .
   {
     if index > -1
       index += 1
-    guicontrol,, icon, *icon%index% %filename% ; index represents group
+    guicontrol,, icon, *icon%index% *w32 *h32 %filename% ; index represents group
     guicontrol, show, icon
   }
   else
@@ -91,12 +91,12 @@ return
 
 help_filename:
 guicontrolget, help_filename, pos
-tooltip, % "- absolute, relative, or PATH (environment variable)`n- supported file types: ani, cpl, cur, dll, exe, ico, scr", help_filenamex+22, help_filenamey+1
+tooltip, % "- absolute, relative, or environment variable path`n- supported file types: ani, cpl, cur, dll, exe, ico, scr", help_filenamex+22, help_filenamey+1
 return
 
 help_index:
 guicontrolget, help_index, pos
-tooltip, supports up and down arrow keys, help_indexx+22, help_indexy+1
+tooltip, press up or down to browse, help_indexx+22, help_indexy+1
 return
 
 WM_MOVE() {

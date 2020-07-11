@@ -3,7 +3,6 @@ menu, tray, nostandard
 menu, tray, add, Exit
 
 sysget, n, monitorworkarea
-
 global WS_SIZEBOX = 0x40000
 global h_half := nbottom/2
 global w_half := a_screenwidth/2
@@ -27,12 +26,12 @@ return
 
 #+left::
 #+right::
-extend("horizontal")
+extend("x")
 return
 
 #+up::
 #+down::
-extend("vertical")
+extend("y")
 return
 
 snap_h(key) {
@@ -87,18 +86,10 @@ extend(direction) {
   winget, dwstyle, style
   if dwstyle & WS_SIZEBOX
   {
-    if (direction = "horizontal") {
-      x = 0
-      w = %a_screenwidth%
-      x -= 7
-      w += 14
-      winmove,,, x,, w
-    }
-    else {
-      h = %nbottom%
-      h += 7
-      winmove,,,, 0,, h
-    }
+    if (direction = "x")
+      winmove,,, -7,, a_screenwidth+14
+    else
+      winmove,,,, 0,, nbottom+7
   }
 }
 

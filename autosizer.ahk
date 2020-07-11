@@ -55,13 +55,7 @@ shellmessage(wparam, lparam) {
         if class = nppprogressclass
           exit
       }
-      x = 0
-      w = %a_screenwidth%
-      h = %nbottom%
-      x -= 7
-      w += 14
-      h += 7
-      winmove,,, x, 0, w, h
+      winmove,,, -7, 0, a_screenwidth+14, nbottom+7
       winmaximize
     }
   }
