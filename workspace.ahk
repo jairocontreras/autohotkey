@@ -54,7 +54,7 @@ hookproc(hwineventhook, event) {
     ; top edge of screen
     ; window move
     mousegetpos,, mouse_y
-    if (((w1 = w and h1 = h) or minmax = 1) and dwstyle & WS_MAXIMIZEBOX and mouse_y = 0 and getkeystate("shift")) {
+    if (((w1 = w and h1 = h) or minmax = 1) and dwstyle & WS_MAXIMIZEBOX and mouse_y = 0 and getkeystate("shift")) { ; minmax = 1 maximized
       winmaximize
       exit
     }

@@ -22,7 +22,7 @@ setwineventhook(eventmin, eventmax, hmodwineventproc, lpfnwineventproc, idproces
 #space::
 winexist("a")
 winget, minmax, minmax
-if minmax = 1
+if minmax = 1 ; maximized
   winrestore
 else {
   winget, dwstyle, style
@@ -41,7 +41,7 @@ return
 #+end::
 winexist("ahk_id" . id)
 winget, minmax, minmax
-if minmax = -1
+if minmax = -1 ; minimized
   winrestore
 return
 
