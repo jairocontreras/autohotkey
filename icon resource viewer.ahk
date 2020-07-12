@@ -15,8 +15,8 @@ gui, add, button, y+8 vhelp_index ghelp_index %BS_NOTIFY%, ?
 gui, show,, Icon Resource Viewer
 
 hotkey, ifwinactive, ahk_id %hwnd%
-hotkey, ~down, down
 hotkey, ~up, up
+hotkey, ~down, down
 
 onmessage(0x03, "WM_MOVE") ; maximize/restore/snap using keyboard
 onmessage(0xa1, "WM_NCLBUTTONDOWN") ; click non-client area
@@ -55,23 +55,6 @@ else
   guicontrol, hide, icon
 return
 
-down:
-guicontrolget, focus, focusv
-if focus = index
-{
-  gui, submit, nohide
-  if index is integer
-  {
-    if index > 0
-      index -= 1
-    else if index < -1
-      index += 1
-    guicontrol,, index, %index%
-    send {end}
-  }
-}
-return
-
 up:
 guicontrolget, focus, focusv
 if focus = index
@@ -83,6 +66,23 @@ if focus = index
       index += 1
     else if index < 0
       index -= 1
+    guicontrol,, index, %index%
+    send {end}
+  }
+}
+return
+
+down:
+guicontrolget, focus, focusv
+if focus = index
+{
+  gui, submit, nohide
+  if index is integer
+  {
+    if index > 0
+      index -= 1
+    else if index < -1
+      index += 1
     guicontrol,, index, %index%
     send {end}
   }
