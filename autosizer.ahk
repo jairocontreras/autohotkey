@@ -13,14 +13,10 @@ menu, tray, add, Exit
 sysget, n, monitorworkarea
 global nbottom
 
-filename = apps.txt
-attribute := fileexist(filename)
+list = list.txt
+attribute := fileexist(list)
 if !attribute
-{
-  fileappend,, %filename%
-  msgbox,, AutoSizer, A text file named 'apps' was automatically created.`nAdd one executable filename per line.
-  run explorer %filename%
-}
+  fileappend,, %list%
 
 gui +hwndhwnd
 dllcall("RegisterShellHookWindow", uint, hwnd)
@@ -38,9 +34,9 @@ shellmessage(wparam, lparam) {
       detecthiddenwindows off
       exit
     }
-    global filename
+    global list
     winwait ahk_id %lparam%
-    fileread, contents, %filename%
+    fileread, contents, %list%
     apps := strreplace(contents, "`r`n", ",")
     if exe in %apps%
     {
@@ -62,7 +58,7 @@ shellmessage(wparam, lparam) {
 }
 
 edit:
-run explorer %filename%
+run explorer %list%
 return
 
 exit:
