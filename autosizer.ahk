@@ -13,10 +13,7 @@ menu, tray, add, Exit
 sysget, n, monitorworkarea
 global nbottom
 
-list = list.txt
-attribute := fileexist(list)
-if !attribute
-  fileappend,, %list%
+fileappend,, list.txt
 
 gui +hwndhwnd
 dllcall("RegisterShellHookWindow", uint, hwnd)
@@ -30,35 +27,32 @@ shellmessage(wparam, lparam) {
     winget, process, processname, ahk_id %lparam%
     exe := substr(process, 1, strlen(process)-4)
     if exe = StartMenuExperienceHost
-    {
       detecthiddenwindows off
-      exit
-    }
-    global list
-    winwait ahk_id %lparam%
-    fileread, contents, %list%
-    apps := strreplace(contents, "`r`n", ",")
-    if exe in %apps%
-    {
-      wingetclass class
-      if exe = explorer
+    else {
+      winwait ahk_id %lparam%
+      loop, read, list.txt
       {
-        if class != cabinetwclass
-          exit
+        item2 := false
+        loop, parse, a_loopreadline, %a_space%
+          item%a_index% = %a_loopfield%
+        if exe = %item1%
+        {
+          if item2
+          {
+            wingetclass class
+            if class not in %item2%
+              exit
+          }
+          winmove,,, -7, 0, a_screenwidth+14, nbottom+7
+          winmaximize
+        }
       }
-      if exe = notepad++
-      {
-        if class = nppprogressclass
-          exit
-      }
-      winmove,,, -7, 0, a_screenwidth+14, nbottom+7
-      winmaximize
     }
   }
 }
 
 edit:
-run explorer %list%
+run explorer list.txt
 return
 
 exit:

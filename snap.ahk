@@ -37,19 +37,18 @@ return
 snap_h(key) {
   winexist("a")
   winget, dwstyle, style
-  if dwstyle & WS_SIZEBOX
-  {
-    wingetpos,, y1,, h1
-    h1 -= 7
-    if (key = "left")
+  if dwstyle & WS_SIZEBOX {
+    wingetpos,, y2,, h2
+    h2 -= 7
+    if key = left
       x = 0
     else
       x = %w_half%
-    if (h1 <= h_half and y1+h1 = nbottom)
+    if (h2 <= h_half and y2+h2 = nbottom)
       y = %h_half%
     else
       y = 0
-    if (h1 <= h_half and (y1 = 0 or y1+h1 = nbottom))
+    if (h2 <= h_half and (y2 = 0 or y2+h2 = nbottom))
       h = %h_half%
     else
       h = %nbottom%
@@ -60,20 +59,19 @@ snap_h(key) {
 snap_v(key) {
   winexist("a")
   winget, dwstyle, style
-  if dwstyle & WS_SIZEBOX
-  {
-    wingetpos, x1,, w1
-    x1 += 7
-    w1 -= 14
-    if (w1 <= w_half and x1+w1 = a_screenwidth)
+  if dwstyle & WS_SIZEBOX {
+    wingetpos, x2,, w2
+    x2 += 7
+    w2 -= 14
+    if (w2 <= w_half and x2+w2 = a_screenwidth)
       x = %w_half%
     else
       x = 0
-    if (key = "up")
+    if key = up
       y = 0
     else
       y = %h_half%
-    if (w1 <= w_half and (x1 = 0 or x1+w1 = a_screenwidth))
+    if (w2 <= w_half and (x2 = 0 or x2+w2 = a_screenwidth))
       w = %w_half%
     else
       w = %a_screenwidth%
@@ -84,9 +82,8 @@ snap_v(key) {
 extend(direction) {
   winexist("a")
   winget, dwstyle, style
-  if dwstyle & WS_SIZEBOX
-  {
-    if (direction = "x")
+  if dwstyle & WS_SIZEBOX {
+    if direction = x
       winmove,,, -7,, a_screenwidth+14
     else
       winmove,,,, 0,, nbottom+7

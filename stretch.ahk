@@ -9,7 +9,7 @@ sysget, n, monitorworkarea
 global nbottom
 
 hookprocadr := registercallback("hookproc", "f")
-hwineventhook := setwineventhook(0x1, 0x17, 0, hookprocadr, 0, 0, 0)
+hwineventhook := setwineventhook(0x2, 0x27, 0, hookprocadr, 0, 0, 0)
 return
 
 hookproc(hwineventhook, event) {
@@ -24,28 +24,28 @@ hookproc(hwineventhook, event) {
   }
   else if event = 11 ; EVENT_SYSTEM_MOVESIZEEND
   {
-    wingetpos, x1, y1, w1, h1
-    x1 += 7
-    w1 -= 14
-    h1 -= 7
+    wingetpos, x2, y2, w2, h2
+    x2 += 7
+    w2 -= 14
+    h2 -= 7
     ; top screen edge: restore (resize past screen when window bottom edge is farthermost)
-    if (h1 > nbottom)
-      h1 -= h1 - nbottom
+    if h2 > %nbottom%
+      h2 -= h2 - nbottom
     ; stretch (resize from window edge towards screen) or restore (resize from window corner past screen)
     ; bottom screen edge (or taskbar)
-    y1_bottom := y1 + h1
-    if (h1 > h and y1 = y and y1_bottom > nbottom-8)
-      h1 -= y1_bottom - nbottom
+    y2_bottom := y2 + h2
+    if (h2 > h and y2 = y and y2_bottom > nbottom-8)
+      h2 -= y2_bottom - nbottom
     ; left screen edge
-    if (w1 > w and x1 < x and x1 < 8) {
-      w1 += x1
-      x1 = 0
+    if (w2 > w and x2 < x and x2 < 8) {
+      w2 += x2
+      x2 = 0
     }
     ; right screen edge
-    x1_right := x1 + w1
-    if (w1 > w and x1 = x and x1_right > a_screenwidth-8)
-      w1 -= x1_right - a_screenwidth
-    winmove,,, x1-7, y1, w1+14, h1+7
+    x2_right := x2 + w2
+    if (w2 > w and x2 = x and x2_right > a_screenwidth-8)
+      w2 -= x2_right - a_screenwidth
+    winmove,,, x2-7, y2, w2+14, h2+7
   }
 }
 

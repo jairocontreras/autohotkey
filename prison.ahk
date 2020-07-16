@@ -10,7 +10,7 @@ global WS_SIZEBOX = 0x40000
 global nbottom
 
 hookprocadr := registercallback("hookproc", "f")
-hwineventhook := setwineventhook(0x1, 0x17, 0, hookprocadr, 0, 0, 0)
+hwineventhook := setwineventhook(0x2, 0x27, 0, hookprocadr, 0, 0, 0)
 return
 
 hookproc(hwineventhook, event) {
@@ -44,22 +44,22 @@ hookproc(hwineventhook, event) {
     ; restore to screen after drag from maximize
     if minmax = 1 ; maximized
     {
-      wingetpos, x1, y1, w1, h1
-      x1 += 7
-      w1 -= 14
-      h1 -= 7
+      wingetpos, x2, y2, w2, h2
+      x2 += 7
+      w2 -= 14
+      h2 -= 7
       ; bottom screen edge (or taskbar)
-      y1_bottom := y1 + h1
-      if (y1_bottom > nbottom)
-        y1 -= y1_bottom - nbottom
+      y2_bottom := y2 + h2
+      if y2_bottom > %nbottom%
+        y2 -= y2_bottom - nbottom
       ; left screen edge
-      if x1 < 0
-        x1 = 0
+      if x2 < 0
+        x2 = 0
       ; right screen edge
-      x1_right := x1 + w1
-      if (x1_right > a_screenwidth)
-        x1 -= x1_right - a_screenwidth
-      winmove,,, x1-7, y1
+      x2_right := x2 + w2
+      if x2_right > %a_screenwidth%
+        x2 -= x2_right - a_screenwidth
+      winmove,,, x2-7, y2
     }
   }
 }
