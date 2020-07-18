@@ -5,9 +5,10 @@ menu, tray, add, Exit
 
 xml = %appdata%\inbox\%1%.xml
 
-frequency = 1
 if %4%
   frequency = %4%
+else
+  frequency = 1
 
 loop {
   gosub check
