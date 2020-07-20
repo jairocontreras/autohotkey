@@ -5,6 +5,7 @@ sendmode input
 
 BS_NOTIFY = 0x4000
 
+menu, tray, icon, images\iconresview.png
 gui +hwndhwnd +minsize298x114 +maxsizex114 +resize
 gui, margin,, 10
 gui, add, edit, section vfilename gload, filename

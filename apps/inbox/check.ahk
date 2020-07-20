@@ -1,4 +1,4 @@
-menu, tray, icon, empty.png
+menu, tray, icon, images\empty.png
 menu, tray, nostandard
 menu, tray, add, Check now, check
 menu, tray, add, Exit
@@ -19,8 +19,8 @@ return
 check:
 urldownloadtofile, https://%1%:%2%@mail.google.com/mail/feed/atom, %xml%
 if errorlevel {
-  _path := ""
-  icon = empty
+  path = images
+  icon = empty.png
   tooltip = No internet connection
 }
 else {
@@ -31,18 +31,18 @@ else {
   count := substr(fullcount, 12)
   if count = 0
   {
-    _path := ""
-    icon = empty
+    path = images
+    icon = empty.png
     tooltip = No new mail
   }
   else if count > 0
   {
-    _path = icons\
+    path = icons
     icon = %3%
     tooltip = %count% unread
   }
   else {
-    _path := ""
+    path = images
     icon = error
     if 401
       tooltip = Unauthorized
@@ -53,7 +53,7 @@ else {
     tooltip .= " error"
   }
 }
-menu, tray, icon, %_path%%icon%.png,, 1
+menu, tray, icon, %path%\%icon%,, 1
 menu, tray, tip, %1%@gmail.com`n%tooltip%
 if icon = error
 {
@@ -63,4 +63,4 @@ if icon = error
 return
 
 exit:
-run exit
+run exit.ahk
