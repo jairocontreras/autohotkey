@@ -1,7 +1,10 @@
 #persistent
 setbatchlines -1
 
-menu, tray, tip, Stretch
+; scheduled task
+setworkingdir %a_scriptdir%
+
+menu, tray, icon, images/stretch.png
 menu, tray, nostandard
 menu, tray, add, Exit
 

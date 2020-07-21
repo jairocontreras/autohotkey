@@ -1,5 +1,4 @@
-menu, tray, icon, images\adjust.png
-menu, tray, tip, Volume
+menu, tray, icon, images\volume.png
 menu, tray, nostandard
 menu, tray, add, Exit
 

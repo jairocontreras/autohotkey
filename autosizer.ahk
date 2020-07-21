@@ -5,7 +5,7 @@ setbatchlines -1
 detecthiddenwindows on
 setworkingdir %a_scriptdir%
 
-menu, tray, tip, AutoSizer
+menu, tray, icon, images/autosizer.png
 menu, tray, nostandard
 menu, tray, add, Edit
 menu, tray, add, Exit

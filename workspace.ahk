@@ -2,7 +2,10 @@
 setbatchlines -1
 coordmode, mouse, screen
 
-menu, tray, tip, Workspace
+; scheduled task
+setworkingdir %a_scriptdir%
+
+menu, tray, icon, images/workspace.png
 menu, tray, nostandard
 menu, tray, add, Exit
 

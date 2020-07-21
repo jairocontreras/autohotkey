@@ -1,6 +1,9 @@
 setbatchlines -1
 
-menu, tray, tip, Maximize
+; scheduled task
+setworkingdir %a_scriptdir%
+
+menu, tray, icon, images/maximize.png
 menu, tray, nostandard
 menu, tray, add, Exit
 
