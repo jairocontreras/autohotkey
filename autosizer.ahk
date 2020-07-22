@@ -3,7 +3,6 @@ setbatchlines -1
 
 ; scheduled task
 detecthiddenwindows on
-setworkingdir %a_scriptdir%
 
 menu, tray, icon, images/autosizer.png
 menu, tray, nostandard

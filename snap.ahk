@@ -1,6 +1,3 @@
-; scheduled task
-setworkingdir %a_scriptdir%
-
 menu, tray, icon, images/snap.png
 menu, tray, nostandard
 menu, tray, add, Exit

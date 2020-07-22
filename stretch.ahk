@@ -1,9 +1,6 @@
 #persistent
 setbatchlines -1
 
-; scheduled task
-setworkingdir %a_scriptdir%
-
 menu, tray, icon, images/stretch.png
 menu, tray, nostandard
 menu, tray, add, Exit
