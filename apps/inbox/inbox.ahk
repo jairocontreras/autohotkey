@@ -1,18 +1,6 @@
 #notrayicon
-
-filegetsize, size, list.txt
-if !size
-{
-  msgbox,, Inbox, You must add at least one account
-  return
-}
-
-install = %appdata%\inbox
-process = %install%\pid.txt
-
-filecreatedir %install%
+process = %appdata%\inbox\pid.txt
 filedelete %process%
-
 loop, read, list.txt
 {
   loop, parse, a_loopreadline, %a_space%

@@ -1,23 +1,15 @@
 #persistent
 setbatchlines -1
-
-; scheduled task
-detecthiddenwindows on
-
 menu, tray, icon, images/autosizer.png
 menu, tray, nostandard
 menu, tray, add, Edit
 menu, tray, add, Exit
-
-sysget, n, monitorworkarea
-global nbottom
-
-fileappend,, list.txt
-
 gui +hwndhwnd
 dllcall("RegisterShellHookWindow", uint, hwnd)
-msgnumber := dllcall("RegisterWindowMessage", str, "shellhook")
-onmessage(msgnumber, "shellmessage")
+detecthiddenwindows on ; scheduled task
+sysget, screen, monitorworkarea
+global screenbottom
+onmessage(dllcall("RegisterWindowMessage", str, "shellhook"), "shellmessage")
 return
 
 shellmessage(wparam, lparam) {
@@ -42,7 +34,7 @@ shellmessage(wparam, lparam) {
             if class not in %item2%
               exit
           }
-          winmove,,, -7, 0, a_screenwidth+14, nbottom+7
+          winmove,,, -7, 0, a_screenwidth+14, screenbottom+7
           winmaximize
         }
       }
