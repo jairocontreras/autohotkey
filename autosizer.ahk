@@ -7,8 +7,6 @@ menu, tray, add, Exit
 gui +hwndhwnd
 dllcall("RegisterShellHookWindow", uint, hwnd)
 detecthiddenwindows on ; scheduled task
-sysget, screen, monitorworkarea
-global screenbottom
 onmessage(dllcall("RegisterWindowMessage", str, "shellhook"), "shellmessage")
 return
 
@@ -17,7 +15,7 @@ shellmessage(wparam, lparam) {
   {
     winget, process, processname, ahk_id %lparam%
     exe := substr(process, 1, strlen(process)-4)
-    if exe = StartMenuExperienceHost
+    if exe = startmenuexperiencehost
       detecthiddenwindows off
     else {
       winwait ahk_id %lparam%
@@ -34,7 +32,6 @@ shellmessage(wparam, lparam) {
             if class not in %item2%
               exit
           }
-          winmove,,, -7, 0, a_screenwidth+14, screenbottom+7
           winmaximize
         }
       }
