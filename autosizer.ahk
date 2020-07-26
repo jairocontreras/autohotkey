@@ -12,10 +12,6 @@ global screenbottom
 onmessage(dllcall("RegisterWindowMessage", str, "shellhook"), "shellmessage")
 return
 
-edit:
-run explorer list.txt
-return
-
 shellmessage(wparam, lparam) {
   if wparam = 1 ; HSHELL_WINDOWCREATED
   {
@@ -45,6 +41,10 @@ shellmessage(wparam, lparam) {
     }
   }
 }
+
+edit:
+run explorer list.txt
+return
 
 exit:
 exitapp

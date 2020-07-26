@@ -1,13 +1,13 @@
 #notrayicon
 #singleinstance off
 menu, tray, icon, images\iconresview.png
+coordmode, tooltip, client
+BS_NOTIFY = 0x4000
 gui +hwndhwnd +minsize298x114 +maxsizex114 +resize
 gui, margin,, 10
 gui, add, edit, section vfilename gload, filename
 gui, add, edit, vindex gload, index
 gui, add, picture, vicon
-coordmode, tooltip, client
-BS_NOTIFY = 0x4000
 gui, add, button, ys-1 vhelp_filename ghelp_filename %BS_NOTIFY%, ?
 gui, add, button, y+8 vhelp_index ghelp_index %BS_NOTIFY%, ?
 gui, show,, Icon Resource Viewer
@@ -19,6 +19,16 @@ sendmode input
 hotkey, ifwinactive, ahk_id %hwnd%
 hotkey, ~up, up
 hotkey, ~down, down
+return
+
+guisize:
+list = filename,index
+loop, parse, list, `,
+{
+  guicontrol, move, %a_loopfield%, % "w" a_guiwidth-41
+  guicontrol, move, help_%a_loopfield%, % "x" a_guiwidth-27
+}
+guicontrol, move, icon, % "x" (a_guiwidth/2)-16
 return
 
 load:
@@ -47,16 +57,6 @@ return
 help_index:
 guicontrolget, help_index, pos
 tooltip, press up or down to browse, help_indexx+22, help_indexy+1
-return
-
-guisize:
-list = filename,index
-loop, parse, list, `,
-{
-  guicontrol, move, %a_loopfield%, % "w" a_guiwidth-41
-  guicontrol, move, help_%a_loopfield%, % "x" a_guiwidth-27
-}
-guicontrol, move, icon, % "x" (a_guiwidth/2)-16
 return
 
 tooltip() {

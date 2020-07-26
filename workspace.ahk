@@ -3,9 +3,9 @@ setbatchlines -1
 menu, tray, icon, images/workspace.png
 menu, tray, nostandard
 menu, tray, add, Exit
-global WS_SIZEBOX = 0x40000
-coordmode, mouse, screen
+coordmode, mouse ; screen
 sysget, screen, monitorworkarea
+global WS_SIZEBOX = 0x40000
 global screenbottom
 hookprocadr := registercallback("hookproc", "f")
 hwineventhook := setwineventhook(0x2, 0x27, 0, hookprocadr, 0, 0, 0)
@@ -23,11 +23,9 @@ hookproc(hwineventhook, event) {
   {
     if a_cursor = arrow
     {
-      ; top screen edge
       mousegetpos,, ym
-      if (getkeystate("shift") and ym = 0 and dwstyle & 0x20000) { ; WS_MAXIMIZEBOX
+      if (getkeystate("shift") and ym = 0 and dwstyle & 0x20000) ; WS_MAXIMIZEBOX
         winmaximize
-      }
       else {
         wingetpos, x2, y2, w2, h2
         if dwstyle & WS_SIZEBOX
@@ -37,7 +35,6 @@ hookproc(hwineventhook, event) {
         if x2 < 0
           x2 = 0
         w2 -= 14
-        x2_right := x2+w2
         if dwstyle & WS_SIZEBOX {
           w -= 14
           h -= 7
@@ -46,11 +43,12 @@ hookproc(hwineventhook, event) {
           w -= 4
           h -= 2
         }
-        if (w2 <= w and x2_right > a_screenwidth) ; w2 < w drag from maximize
+        x2_right := x2+w2
+        if x2_right > %a_screenwidth%
           x2 -= x2_right-a_screenwidth
         h2 -= 7
         y2_bottom := y2+h2
-        if (h2 <= h and y2_bottom > screenbottom) ; h2 < h drag from maximize
+        if y2_bottom > %screenbottom%
           y2 -= y2_bottom-screenbottom
         if dwstyle & WS_SIZEBOX
           x2 -= 7

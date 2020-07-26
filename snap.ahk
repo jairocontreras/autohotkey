@@ -1,11 +1,11 @@
 menu, tray, icon, images/snap.png
 menu, tray, nostandard
 menu, tray, add, Exit
+sysget, screen, monitorworkarea
 global WS_SIZEBOX = 0x40000
 global w_half := a_screenwidth/2
-sysget, screen, monitorworkarea
-global screenbottom
 global h_half := screenbottom/2
+global screenbottom
 
 #left::
 snap_h("left")
@@ -90,12 +90,12 @@ extend(direction) {
 }
 
 winmove(x, y, w, h) {
+  x -= 7
   varsetcapacity(lpwndpl, 44)
   ; length
   numput(44, lpwndpl,, uint)
   ; showcmd
   numput(9, lpwndpl, 8, uint) ; SW_RESTORE
-  x -= 7
   ; rcnormalposition
   numput(x, lpwndpl, 28, "int") ; left
   numput(y, lpwndpl, 32, "int") ; top

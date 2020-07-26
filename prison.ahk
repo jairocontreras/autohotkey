@@ -13,12 +13,12 @@ hookproc(hwineventhook, event) {
   global xs, ys, xw, yw, x, y, w, h, minmax
   if event = 8 ; EVENT_SYSTEM_CAPTURESTART
   {
-    coordmode, mouse, screen
+    coordmode, mouse ; screen
     mousegetpos, xs, ys
-    winexist("a")
-    wingetpos, x, y, w, h
     coordmode, mouse, window
     mousegetpos, xw, yw
+    winexist("a")
+    wingetpos, x, y, w, h
     winget, minmax, minmax
   }
   else if event = 10 ; EVENT_SYSTEM_MOVESIZESTART
@@ -26,10 +26,10 @@ hookproc(hwineventhook, event) {
     if a_cursor = arrow
     {
       varsetcapacity(lprect, 16)
-      numput(xs-x-7, &lprect+0)
-      numput(ys-y, &lprect+4)
-      numput(a_screenwidth-w+xw+8, &lprect+8)
-      numput(screenbottom-h+yw+8, &lprect+12)
+      numput(xs-x-7, &lprect+0) ; left
+      numput(ys-y, &lprect+4) ; right
+      numput(a_screenwidth-w+xw+8, &lprect+8) ; top
+      numput(screenbottom-h+yw+8, &lprect+12) ; bottom
       dllcall("ClipCursor", uint, &lprect)
     }
   }
