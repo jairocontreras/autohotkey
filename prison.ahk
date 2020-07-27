@@ -13,7 +13,7 @@ hookproc(hwineventhook, event) {
   global xs, ys, xw, yw, x, y, w, h, minmax
   if event = 8 ; EVENT_SYSTEM_CAPTURESTART
   {
-    coordmode, mouse ; screen
+    coordmode mouse ; screen
     mousegetpos, xs, ys
     coordmode, mouse, window
     mousegetpos, xw, yw

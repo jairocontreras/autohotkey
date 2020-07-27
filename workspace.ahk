@@ -3,7 +3,7 @@ setbatchlines -1
 menu, tray, icon, images/workspace.png
 menu, tray, nostandard
 menu, tray, add, Exit
-coordmode, mouse ; screen
+coordmode mouse ; screen
 sysget, screen, monitorworkarea
 global WS_SIZEBOX = 0x40000
 global screenbottom
