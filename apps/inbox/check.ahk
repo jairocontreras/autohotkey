@@ -2,6 +2,7 @@ menu, tray, icon, images\empty.png
 menu, tray, nostandard
 menu, tray, add, Check now, check
 menu, tray, add, Exit
+onmessage(0x404, "AHK_NOTIFYICON")
 xml = %appdata%\inbox\%1%.xml
 if %4%
   frequency = %4%
@@ -12,6 +13,11 @@ loop {
   sleep frequency*1000*60
 }
 return
+
+AHK_NOTIFYICON(wparam, lparam) {
+  if lparam = 0x202 ; WM_LBUTTONUP
+    run https://mail.google.com
+}
 
 check:
 urldownloadtofile, https://%1%:%2%@mail.google.com/mail/feed/atom, %xml%
