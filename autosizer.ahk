@@ -6,34 +6,24 @@ menu, tray, add, Edit
 menu, tray, add, Exit
 gui +hwndhwnd
 dllcall("RegisterShellHookWindow", uint, hwnd)
-detecthiddenwindows on ; scheduled task
 onmessage(dllcall("RegisterWindowMessage", str, "shellhook"), "shellmessage")
 return
 
-shellmessage(wparam, lparam) {
+shellmessage(wparam) {
   if wparam = 1 ; HSHELL_WINDOWCREATED
   {
-    winget, process, processname, ahk_id %lparam%
-    exe := substr(process, 1, strlen(process)-4)
-    if exe = startmenuexperiencehost
-      detecthiddenwindows off
-    else {
-      winwait ahk_id %lparam%
-      loop, read, list.txt
+    winexist("a")
+    winget, process, processname
+    loop, read, list.txt
+    {
+      loop, parse, a_loopreadline, %a_space%
+        item%a_index% = %a_loopfield%
+      if item1 = % substr(process, 1, strlen(process)-4)
       {
-        item2 := false
-        loop, parse, a_loopreadline, %a_space%
-          item%a_index% = %a_loopfield%
-        if exe = %item1%
-        {
-          if item2
-          {
-            wingetclass class
-            if class not in %item2%
-              exit
-          }
-          winmaximize
-        }
+        wingetclass class
+        if (item2 and class != item2)
+          exit
+        winmaximize
       }
     }
   }
