@@ -1,4 +1,4 @@
-menu, tray, icon, images/snap.png
+menu, tray, icon, images\snap.png
 menu, tray, nostandard
 menu, tray, add, Exit
 sysget, screen, monitorworkarea

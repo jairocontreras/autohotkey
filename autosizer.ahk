@@ -1,6 +1,6 @@
 #persistent
 setbatchlines -1
-menu, tray, icon, images/autosizer.png
+menu, tray, icon, images\autosizer.png
 menu, tray, nostandard
 menu, tray, add, Edit
 menu, tray, add, Exit

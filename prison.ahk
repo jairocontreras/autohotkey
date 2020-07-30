@@ -1,6 +1,6 @@
 #persistent
 setbatchlines -1
-menu, tray, icon, images/prison.png
+menu, tray, icon, images\prison.png
 menu, tray, nostandard
 menu, tray, add, Exit
 sysget, screen, monitorworkarea

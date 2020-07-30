@@ -1,5 +1,5 @@
 setbatchlines -1
-menu, tray, icon, images/maximize.png
+menu, tray, icon, images\maximize.png
 menu, tray, nostandard
 menu, tray, add, Exit
 hookprocadr := registercallback("hookproc", "f")
