@@ -18,6 +18,7 @@ shellmessage(wparam) {
   {
     winexist("a")
     winget, process, processname
+    classlist =
     exclude := false
     loop, read, list.txt
     {
@@ -30,8 +31,12 @@ shellmessage(wparam) {
       }
       if exe = % substr(process, 1, strlen(process)-4)
       {
-        wingetclass class
-        if class in %classlist%
+        if classlist {
+          wingetclass class
+          if class in %classlist%
+            exclude := true
+        }
+        else
           exclude := true
       }
     }
