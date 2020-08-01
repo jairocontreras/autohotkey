@@ -17,11 +17,17 @@ shellmessage(wparam) {
     loop, read, list.txt
     {
       loop, parse, a_loopreadline, %a_space%
-        item%a_index% = %a_loopfield%
-      if item1 = % substr(process, 1, strlen(process)-4)
+      {
+        if a_index = 1
+          var = exe
+        else
+          var = class
+        var_%var% = %a_loopfield%
+      }
+      if var_exe = % substr(process, 1, strlen(process)-4)
       {
         wingetclass class
-        if (item2 and class != item2)
+        if (var_class and class != var_class)
           exit
         winmaximize
       }
