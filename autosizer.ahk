@@ -16,6 +16,7 @@ shellmessage(wparam) {
     winget, process, processname
     loop, read, list.txt
     {
+      var_class =
       loop, parse, a_loopreadline, %a_space%
       {
         if a_index = 1
