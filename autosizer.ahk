@@ -30,6 +30,7 @@ shellmessage(wparam) {
         wingetclass class
         if (var_class and class != var_class)
           exit
+        winwaitactive ; e.g. regjump <<path>|-c>
         winmaximize
       }
     }
