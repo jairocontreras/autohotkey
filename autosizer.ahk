@@ -4,35 +4,43 @@ menu, tray, icon, images\autosizer.png
 menu, tray, nostandard
 menu, tray, add, Edit
 menu, tray, add, Exit
+sysget, screen, monitorworkarea
+global screenbottom
 gui +hwndhwnd
 dllcall("RegisterShellHookWindow", uint, hwnd)
 onmessage(dllcall("RegisterWindowMessage", str, "shellhook"), "shellmessage")
 return
 
-shellmessage(wparam) {
+shellmessage(wparam, lparam) {
   if wparam = 1 ; HSHELL_WINDOWCREATED
   {
-    winexist("a")
+    winwait ahk_id %lparam% ; winexist("a") not good for applicationframehost
     winget, process, processname
     loop, read, list.txt
     {
-      var_class =
-      loop, parse, a_loopreadline, %a_space%
+      titlelist =
+      loop, parse, a_loopreadline, csv
       {
         if a_index = 1
-          var = exe
+          exe = %a_loopfield%
         else
-          var = class
-        var_%var% = %a_loopfield%
+          titlelist .= a_loopfield ","
       }
-      if var_exe = % substr(process, 1, strlen(process)-4)
+      if exe = % substr(process, 1, strlen(process)-4)
       {
-        wingetclass class
-        if (var_class and class != var_class)
+        if titlelist {
+          wingettitle title
+          if title in %titlelist%
+            exit
+        }
+        else
           exit
-        winwaitactive ; e.g. regjump <<path>|-c>
-        winmaximize
       }
+    }
+    winget, dwstyle, style
+    if dwstyle & 0x10000 { ; WS_MAXIMIZEBOX
+      winmove,,, -7, 0, a_screenwidth+14, screenbottom+7
+      winmaximize
     }
   }
 }
