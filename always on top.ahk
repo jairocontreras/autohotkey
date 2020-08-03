@@ -20,7 +20,7 @@ shellmessage(wparam) {
     winget, process, processname
     classlist =
     exclude := false
-    loop, read, list.txt
+    loop, read, exceptions.txt
     {
       loop, parse, a_loopreadline, %a_space%
       {

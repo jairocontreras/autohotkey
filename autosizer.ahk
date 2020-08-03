@@ -23,7 +23,7 @@ shellmessage(wparam, lparam) {
       exit
     }
     winwait ahk_id %lparam% ; winexist("a") not good for applicationframehost
-    loop, read, list.txt
+    loop, read, exceptions.txt
     {
       titlelist =
       loop, parse, a_loopreadline, csv
@@ -53,7 +53,7 @@ shellmessage(wparam, lparam) {
 }
 
 edit:
-run explorer list.txt
+run explorer exceptions.txt
 return
 
 exit:
