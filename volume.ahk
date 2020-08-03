@@ -26,14 +26,16 @@ return
 
 mouseisover(wintitle) {
   mousegetpos,,, win
-  return winexist(wintitle . " ahk_id" . win)
+  return winexist(wintitle " ahk_id" win)
 }
 
 tooltip() {
   global x
-  mousegetpos x
   soundget volume
-  tooltip, % ceil(volume) . "%",, screenbottom-21
+  mousegetpos x
+  if volume > 9
+    x -= 3
+  tooltip, % ceil(volume) "%", x-14, screenbottom-21
 }
 
 exit:
