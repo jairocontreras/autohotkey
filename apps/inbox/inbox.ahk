@@ -54,7 +54,7 @@ else {
 }
 menu, tray, icon, images\%icon%,, 1
 menu, tray, tip, %1%@gmail.com`n%tooltip%
-if icon = _error.png
+if tooltip = Unauthorized
 {
   menu, tray, delete, check now
   pause
