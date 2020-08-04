@@ -1,4 +1,4 @@
-menu, tray, icon, images\empty.png
+menu, tray, icon, images\_empty.png
 menu, tray, nostandard
 menu, tray, add, Check now, check
 menu, tray, add, Exit
@@ -22,8 +22,7 @@ AHK_NOTIFYICON(wparam, lparam) {
 check:
 urldownloadtofile, https://%1%:%2%@mail.google.com/mail/feed/atom, %xml%
 if errorlevel {
-  path = images
-  icon = empty.png
+  icon = _empty.png
   tooltip = No internet connection
 }
 else {
@@ -32,19 +31,16 @@ else {
   unread := substr(fullcount, 12)
   if unread = 0
   {
-    path = images
-    icon = empty.png
+    icon = _empty.png
     tooltip = No new mail
   }
   else if unread > 0
   {
-    path = icons
     icon = %3%
     tooltip = %unread% unread
   }
   else {
-    path = images
-    icon = error
+    icon = _error.png
     regexmatch(contents, "i)<title>unauthorized", 401)
     regexmatch(contents, "i)<title>error 502", 502)
     if 401
@@ -56,9 +52,9 @@ else {
     tooltip .= " error"
   }
 }
-menu, tray, icon, %path%\%icon%,, 1
+menu, tray, icon, images\%icon%,, 1
 menu, tray, tip, %1%@gmail.com`n%tooltip%
-if icon = error
+if icon = _error.png
 {
   menu, tray, delete, check now
   pause
