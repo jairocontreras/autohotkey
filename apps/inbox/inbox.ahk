@@ -22,7 +22,7 @@ AHK_NOTIFYICON(wparam, lparam) {
 check:
 urldownloadtofile, https://%1%:%2%@mail.google.com/mail/feed/atom, %xml%
 if errorlevel {
-  icon = _empty.png
+  icon = _error.png
   tooltip = No internet connection
 }
 else {
