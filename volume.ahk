@@ -1,3 +1,5 @@
+; run as administrator
+
 menu, tray, icon, images\volume.png
 menu, tray, nostandard
 menu, tray, add, Exit
