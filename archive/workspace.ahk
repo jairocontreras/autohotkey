@@ -1,6 +1,6 @@
 #persistent
 setbatchlines -1
-menu, tray, icon, images\workspace.png
+menu, tray, icon, workspace.png
 menu, tray, nostandard
 menu, tray, add, Exit
 coordmode mouse ; screen
