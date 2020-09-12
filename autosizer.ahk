@@ -22,7 +22,7 @@ shellmessage(wparam, lparam) {
       detecthiddenwindows off
       exit
     }
-    winwait ahk_id %lparam% ; winexist("a") not good for applicationframehost
+    winwait ahk_id %lparam% ; winexist("a") not work for applicationframehost
     loop, read, exceptions.txt
     {
       titlelist =
