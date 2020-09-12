@@ -4,23 +4,24 @@ menu, tray, icon, images\media.png
 menu, tray, nostandard
 menu, tray, add, Exit
 
-^#up::
+#numpadadd::
 send {volume_up}
 return
 
-^#down::
+#numpadsub::
 send {volume_down}
 return
 
-^#space::
+#enter::
+#numpadenter::
 send {media_play_pause}
 return
 
-^#left::
+#numpad4::
 send {media_prev}
 return
 
-^#right::
+#numpad6::
 send {media_next}
 return
 
