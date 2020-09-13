@@ -18,8 +18,9 @@ shellmessage(wparam, lparam) {
     if (substr(process, 1, strlen(process)-4) in strreplace(contents, "`r`n", ","))
     {
       winwait ahk_id %lparam%
-      info := trayicon_getinfo(process)[1]
-      trayicon_remove(info.hwnd, info.uid)
+      info := trayicon_getinfo(process)
+      loop % info.maxindex()
+        trayicon_remove(info[a_index].hwnd, info[a_index].uid)
     }
   }
 }
