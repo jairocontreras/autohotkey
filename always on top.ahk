@@ -2,6 +2,7 @@ setbatchlines -1
 menu, tray, icon, imageres.dll, 234
 menu, tray, nostandard
 menu, tray, add, Exit
+global exclude
 gui +hwndhwnd
 dllcall("RegisterShellHookWindow", uint, hwnd)
 onmessage(dllcall("RegisterWindowMessage", str, "shellhook"), "shellmessage")
@@ -15,7 +16,6 @@ return
 shellmessage(wparam) {
   if wparam = 32772 ; HSHELL_RUDEAPPACTIVATED
   {
-    global exclude
     winexist("a")
     winget, process, processname
     classlist =
