@@ -2,16 +2,14 @@ setbatchlines -1
 menu, tray, icon, images\maximize.png
 menu, tray, nostandard
 menu, tray, add, Exit
+global id
 hookprocadr := registercallback("hookproc", "f")
 hwineventhook := setwineventhook(0x1, 0x17, 0, hookprocadr, 0, 0, 0)
 return
 
 hookproc(hwineventhook, event, hwnd) {
   if event = 22 ; EVENT_SYSTEM_MINIMIZESTART
-  {
-    global id
     id = %hwnd%
-  }
 }
 
 setwineventhook(eventmin, eventmax, hmodwineventproc, lpfnwineventproc, idprocess, idthread, dwflags) {
