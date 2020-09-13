@@ -7,9 +7,11 @@ hwineventhook := setwineventhook(0x1, 0x17, 0, hookprocadr, 0, 0, 0)
 return
 
 hookproc(hwineventhook, event, hwnd) {
-  global id
   if event = 22 ; EVENT_SYSTEM_MINIMIZESTART
+  {
+    global id
     id = %hwnd%
+  }
 }
 
 setwineventhook(eventmin, eventmax, hmodwineventproc, lpfnwineventproc, idprocess, idthread, dwflags) {

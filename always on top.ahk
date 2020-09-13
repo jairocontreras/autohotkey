@@ -13,9 +13,9 @@ goto tray
 return
 
 shellmessage(wparam) {
-  global exclude
   if wparam = 32772 ; HSHELL_RUDEAPPACTIVATED
   {
+    global exclude
     winexist("a")
     winget, process, processname
     classlist =
