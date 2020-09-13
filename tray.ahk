@@ -14,9 +14,8 @@ shellmessage(wparam, lparam) {
   if wparam = 1 ; HSHELL_WINDOWCREATED
   {
     winget, process, processname, ahk_id %lparam%
-    exe := substr(process, 1, strlen(process)-4)
     fileread, contents, tray.txt
-    if exe in % strreplace(contents, "`r`n", ",")
+    if (substr(process, 1, strlen(process)-4) in strreplace(contents, "`r`n", ","))
     {
       winwait ahk_id %lparam%
       info := trayicon_getinfo(process)[1]
