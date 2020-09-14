@@ -1,4 +1,4 @@
 @echo off
-rd %appdata%\inbox /s /q
+rd /s /q "%appdata%\inbox"
 echo Uninstalled
 pause
