@@ -1,5 +1,5 @@
 setbatchlines -1
-menu, tray, icon, imageres.dll, 234
+menu, tray, icon, images\alwaysontop.png
 menu, tray, nostandard
 menu, tray, add, Exit
 global exclude
@@ -47,9 +47,9 @@ shellmessage(wparam) {
 tray:
 winget, exstyle, exstyle
 if (exstyle & 0x8 and !exclude) ; WS_EX_TOPMOST
-  menu, tray, icon, images\alwaysontop.png
-else
   menu, tray, icon, imageres.dll, 234
+else
+  menu, tray, icon, images\alwaysontop.png
 return
 
 exit:
