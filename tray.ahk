@@ -6,24 +6,17 @@ menu, tray, nostandard
 menu, tray, add, Edit
 menu, tray, add, Exit
 global process
-onmessage(0x404, "AHK_NOTIFYICON")
 gui +hwndhwnd
 dllcall("RegisterShellHookWindow", uint, hwnd)
 onmessage(dllcall("RegisterWindowMessage", str, "shellhook"), "shellmessage")
-return
-
-AHK_NOTIFYICON(wparam, lparam) {
-  if lparam = 0x202 ; WM_LBUTTONUP
-  {
-    loop, read, tray.txt
-    {
-      process = % strsplit(a_loopreadline, "*")[1] ".exe"
-      gosub remove
-      if instr(a_loopreadline, "*")
-        gosub remove
-    }
-  }
+loop, read, tray.txt
+{
+  process = % strsplit(a_loopreadline, "*")[1] ".exe"
+  gosub remove
+  if instr(a_loopreadline, "*")
+    gosub remove
 }
+return
 
 shellmessage(wparam, lparam) {
   if wparam = 1 ; HSHELL_WINDOWCREATED
