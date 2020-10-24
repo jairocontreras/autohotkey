@@ -7,7 +7,7 @@ gui +hwndhwnd
 dllcall("RegisterShellHookWindow", uint, hwnd)
 onmessage(dllcall("RegisterWindowMessage", str, "shellhook"), "shellmessage")
 
-#a::
+#t::
 winexist("a")
 winset alwaysontop
 goto tray
