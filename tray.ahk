@@ -9,6 +9,8 @@ global process
 gui +hwndhwnd
 dllcall("RegisterShellHookWindow", uint, hwnd)
 onmessage(dllcall("RegisterWindowMessage", str, "shellhook"), "shellmessage")
+
+; when you open apps first at startup
 loop, read, tray.txt
 {
   process = % strsplit(a_loopreadline, "*")[1] ".exe"
