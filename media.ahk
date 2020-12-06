@@ -1,27 +1,35 @@
 ; run as administrator
 
+coordmode mouse ; screen
 menu, tray, icon, images\media.png
 menu, tray, nostandard
 menu, tray, add, Exit
 
-#numpadadd::
+#if mouseisover("ahk_class Shell_TrayWnd")
+wheelup::
 send {volume_up}
 return
 
-#numpadsub::
+wheeldown::
 send {volume_down}
 return
+#if
+
+mouseisover(wintitle) {
+  mousegetpos,,, win
+  return winexist(wintitle " ahk_id" win)
+}
 
 #enter::
 #numpadenter::
 send {media_play_pause}
 return
 
-#numpad4::
+#pgup::
 send {media_prev}
 return
 
-#numpad6::
+#pgdn::
 send {media_next}
 return
 
