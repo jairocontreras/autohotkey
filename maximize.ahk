@@ -36,7 +36,7 @@ if dwstyle & 0x20000 ; WS_MINIMIZEBOX
   winminimize
 return
 
-#+end::
+#home::
 winexist("ahk_id" id)
 winget, minmax, minmax
 if minmax = -1 ; minimized

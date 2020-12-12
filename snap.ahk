@@ -33,9 +33,14 @@ return
 extend("y")
 return
 
-#numpad5::
+#c::
 winexist("a")
 winmove(w_half/2, h_half/2, w_half, h_half)
+return
+
+#+space::
+winexist("a")
+winmove(0, 0, a_screenwidth, screenbottom)
 return
 
 snap_h(key) {

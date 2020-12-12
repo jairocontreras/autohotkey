@@ -1,9 +1,9 @@
 ; run as administrator
 
-coordmode mouse ; screen
 menu, tray, icon, images\media.png
 menu, tray, nostandard
 menu, tray, add, Exit
+coordmode mouse ; screen
 
 #if mouseisover("ahk_class Shell_TrayWnd")
 wheelup::
