@@ -1,8 +1,6 @@
 ; run as administrator
 
 menu, tray, icon, images\media.png
-menu, tray, nostandard
-menu, tray, add, Exit
 coordmode mouse ; screen
 
 #if mouseisover("ahk_class Shell_TrayWnd")
@@ -32,6 +30,3 @@ return
 #pgdn::
 send {media_next}
 return
-
-exit:
-exitapp

@@ -1,8 +1,6 @@
 #persistent
 setbatchlines -1
 menu, tray, icon, images\stretch.png
-menu, tray, nostandard
-menu, tray, add, Exit
 sysget, screen, monitorworkarea
 global screenbottom
 hookprocadr := registercallback("hookproc", "f")
@@ -52,6 +50,3 @@ setwineventhook(eventmin, eventmax, hmodwineventproc, lpfnwineventproc, idproces
   dllcall("CoInitialize", uint, 0)
   return dllcall("SetWinEventHook", uint, eventmin, uint, eventmax, uint, hmodwineventproc, uint, lpfnwineventproc, uint, idprocess, uint, idthread, uint, dwflags)
 }
-
-exit:
-exitapp

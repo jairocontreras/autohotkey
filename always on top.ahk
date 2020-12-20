@@ -1,6 +1,7 @@
 setbatchlines -1
 menu, tray, icon, images\alwaysontop.png
 menu, tray, nostandard
+menu, tray, add, Edit
 menu, tray, add, Exit
 global exclude
 gui +hwndhwnd
@@ -50,6 +51,10 @@ if (exstyle & 0x8 and !exclude) ; WS_EX_TOPMOST
   menu, tray, icon, imageres.dll, 234
 else
   menu, tray, icon, images\alwaysontop.png
+return
+
+edit:
+run explorer exceptions.txt
 return
 
 exit:
