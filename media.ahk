@@ -23,10 +23,10 @@ mouseisover(wintitle) {
 send {media_play_pause}
 return
 
-#pgup::
+#^left::
 send {media_prev}
 return
 
-#pgdn::
+#^right::
 send {media_next}
 return
