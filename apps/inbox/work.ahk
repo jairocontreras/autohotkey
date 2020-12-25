@@ -1,4 +1,5 @@
 menu, tray, icon, images\_empty.png
+menu, tray, tip, Loading... hover again
 menu, tray, nostandard
 menu, tray, add, Check now, check
 menu, tray, add, Exit

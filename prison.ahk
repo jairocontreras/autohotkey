@@ -34,7 +34,7 @@ hookproc(hwineventhook, event) {
   else if event = 11 ; EVENT_SYSTEM_MOVESIZEEND
   {
     if a_cursor = arrow
-      dllcall("ClipCursor")
+      dllcall("ClipCursor", int, 0)
     ; restore to screen after drag from maximize
     if minmax = 1 ; maximized
     {
