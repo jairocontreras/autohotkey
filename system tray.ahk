@@ -1,6 +1,6 @@
 #persistent
 setbatchlines -1
-menu, tray, icon, images\tray.png
+menu, tray, icon, images\system tray.png
 menu, tray, nostandard
 menu, tray, add, Edit
 menu, tray, add, Exit
@@ -10,7 +10,7 @@ dllcall("RegisterShellHookWindow", uint, hwnd)
 onmessage(dllcall("RegisterWindowMessage", str, "shellhook"), "shellmessage")
 
 ; when you open app(s) before running script
-loop, read, tray.txt
+loop, read, apps.txt
 {
   process = % strsplit(a_loopreadline, "*")[1] ".exe"
   gosub remove
@@ -21,7 +21,7 @@ shellmessage(wparam, lparam) {
   if wparam = 1 ; HSHELL_WINDOWCREATED
   {
     winget, process, processname, ahk_id %lparam%
-    loop, read, tray.txt
+    loop, read, apps.txt
     {
       if (strsplit(a_loopreadline, "*")[1] ".exe" = process) {
         winwait ahk_id %lparam%
@@ -126,7 +126,7 @@ TrayIcon_GetTrayBar(Tray:="NotifyIconOverflowWindow")
 }
 
 edit:
-run explorer tray.txt
+run explorer apps.txt
 return
 
 remove:
