@@ -1,4 +1,4 @@
-menu, tray, icon, images\snap.png
+;menu, tray, icon, images\snap.png
 sysget, screen, monitorworkarea
 global WS_SIZEBOX = 0x40000
 global w_half := a_screenwidth/2
@@ -109,7 +109,7 @@ extend(direction) {
       if x2 < %a_screenwidth%
       {
         x = 0
-        if (x2+w2 > a_screenwidth)
+        if x2+w2 > %a_screenwidth%
           w *= 2
       }
       else

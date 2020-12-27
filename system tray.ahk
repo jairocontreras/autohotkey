@@ -32,107 +32,38 @@ shellmessage(wparam, lparam) {
   }
 }
 
-TrayIcon_GetInfo(sExeName)
-{
-  DetectHiddenWindows, % (Setting_A_DetectHiddenWindows := A_DetectHiddenWindows) ? "On" :
-  oTrayIcon_GetInfo := {}
-  For key, sTray in ["Shell_TrayWnd", "NotifyIconOverflowWindow"]
-  {
-    idxTB := TrayIcon_GetTrayBar(sTray)
-    WinGet, pidTaskbar, PID, ahk_class %sTray%
-
-    hProc := DllCall("OpenProcess", UInt, 0x38, Int, 0, UInt, pidTaskbar)
-    pRB   := DllCall("VirtualAllocEx", Ptr, hProc, Ptr, 0, UPtr, 20, UInt, 0x1000, UInt, 0x4)
-
-    SendMessage, 0x418, 0, 0, ToolbarWindow32%idxTB%, ahk_class %sTray%   ; TB_BUTTONCOUNT
-
-    szBtn := VarSetCapacity(btn, (A_Is64bitOS ? 32 : 20), 0)
-    szNfo := VarSetCapacity(nfo, (A_Is64bitOS ? 32 : 24), 0)
-    szTip := VarSetCapacity(tip, 128 * 2, 0)
-
-    Loop, %ErrorLevel%
-    {
-      SendMessage, 0x417, A_Index - 1, pRB, ToolbarWindow32%idxTB%, ahk_class %sTray%   ; TB_GETBUTTON
-      DllCall("ReadProcessMemory", Ptr, hProc, Ptr, pRB, Ptr, &btn, UPtr, szBtn, UPtr, 0)
-
-      iBitmap := NumGet(btn, 0, "Int")
-      IDcmd   := NumGet(btn, 4, "Int")
-      statyle := NumGet(btn, 8)
-      dwData  := NumGet(btn, (A_Is64bitOS ? 16 : 12))
-      iString := NumGet(btn, (A_Is64bitOS ? 24 : 16), "Ptr")
-
-      DllCall("ReadProcessMemory", Ptr, hProc, Ptr, dwData, Ptr, &nfo, UPtr, szNfo, UPtr, 0)
-
-      hWnd  := NumGet(nfo, 0, "Ptr")
-      uID   := NumGet(nfo, (A_Is64bitOS ? 8 : 4), "UInt")
-      msgID := NumGet(nfo, (A_Is64bitOS ? 12 : 8))
-      hIcon := NumGet(nfo, (A_Is64bitOS ? 24 : 20), "Ptr")
-
-      WinGet, pID, PID, ahk_id %hWnd%
-      WinGet, sProcess, ProcessName, ahk_id %hWnd%
-      WinGetClass, sClass, ahk_id %hWnd%
-
-      If (sExeName = sProcess) || (sExeName = pID)
-      {
-        DllCall("ReadProcessMemory", Ptr, hProc, Ptr, iString, Ptr, &tip, UPtr, szTip, UPtr, 0)
-        Index := (oTrayIcon_GetInfo.MaxIndex()>0 ? oTrayIcon_GetInfo.MaxIndex()+1 : 1)
-        oTrayIcon_GetInfo[Index,"idx"]     := A_Index - 1
-        oTrayIcon_GetInfo[Index,"IDcmd"]   := IDcmd
-        oTrayIcon_GetInfo[Index,"pID"]     := pID
-        oTrayIcon_GetInfo[Index,"uID"]     := uID
-        oTrayIcon_GetInfo[Index,"msgID"]   := msgID
-        oTrayIcon_GetInfo[Index,"hIcon"]   := hIcon
-        oTrayIcon_GetInfo[Index,"hWnd"]    := hWnd
-        oTrayIcon_GetInfo[Index,"Class"]   := sClass
-        oTrayIcon_GetInfo[Index,"Process"] := sProcess
-        oTrayIcon_GetInfo[Index,"Tooltip"] := StrGet(&tip, "UTF-16")
-        oTrayIcon_GetInfo[Index,"Tray"]    := sTray
-      }
-    }
-    DllCall("VirtualFreeEx", Ptr, hProc, Ptr, pRB, UPtr, 0, Uint, 0x8000)
-    DllCall("CloseHandle", Ptr, hProc)
-  }
-  DetectHiddenWindows, %Setting_A_DetectHiddenWindows%
-  Return oTrayIcon_GetInfo
-}
-
-TrayIcon_Delete(idx)
-{
-  sTray = NotifyIconOverflowWindow
-  DetectHiddenWindows, % (Setting_A_DetectHiddenWindows := A_DetectHiddenWindows) ? "On" :
-  idxTB := TrayIcon_GetTrayBar()
-  SendMessage, 0x416, idx, 0, ToolbarWindow32%idxTB%, ahk_class %sTray% ; TB_DELETEBUTTON
-  SendMessage, 0x1A, 0, 0, , ahk_class %sTray%
-  DetectHiddenWindows, %Setting_A_DetectHiddenWindows%
-}
-
-TrayIcon_GetTrayBar(Tray:="NotifyIconOverflowWindow")
-{
-  DetectHiddenWindows, % (Setting_A_DetectHiddenWindows := A_DetectHiddenWindows) ? "On" :
-  WinGet, ControlList, ControlList, ahk_class %Tray%
-  RegExMatch(ControlList, "(?<=ToolbarWindow32)\d+(?!.*ToolbarWindow32)", nTB)
-  Loop, %nTB%
-  {
-    ControlGet, hWnd, hWnd,, ToolbarWindow32%A_Index%, ahk_class %Tray%
-    hParent := DllCall( "GetParent", Ptr, hWnd )
-    WinGetClass, sClass, ahk_id %hParent%
-    If !(sClass = "SysPager" or sClass = "NotifyIconOverflowWindow" )
-      Continue
-    idxTB := A_Index
-    Break
-  }
-  DetectHiddenWindows, %Setting_A_DetectHiddenWindows%
-  Return  idxTB
-}
-
 edit:
 run explorer apps.txt
 return
 
 remove:
-info := trayicon_getinfo(process)
-loop % info.maxindex()
-  trayicon_delete(info[a_index].idx)
+detecthiddenwindows on
+winget, pid, pid, ahk_class NotifyIconOverflowWindow
+hproc := dllcall("OpenProcess", uint, 0x38, int, 0, uint, pid)
+prb := dllcall("VirtualAllocEx", ptr, hproc, ptr, 0, uptr, 20, uint, 0x1000, uint, 0x4)
+index = 1
+sendmessage, 0x418, 0, 0, toolbarwindow32%index%, ahk_class NotifyIconOverflowWindow ; TB_BUTTONCOUNT
+szbtn := varsetcapacity(btn, (a_is64bitos ? 32 : 20), 0)
+sznfo := varsetcapacity(nfo, (a_is64bitos ? 32 : 24), 0)
+sztip := varsetcapacity(tip, 128 * 2, 0)
+loop %errorlevel% {
+  sendmessage, 0x417, a_index-1, prb, toolbarwindow32%index%, ahk_class NotifyIconOverflowWindow ; TB_GETBUTTON
+  dllcall("ReadProcessMemory", ptr, hproc, ptr, prb, ptr, &btn, uptr, szbtn, uptr, 0)
+  dwdata := numget(btn, (a_is64bitos ? 16 : 12))
+  istring := numget(btn, (a_is64bitos ? 24 : 16), ptr)
+  dllcall("ReadProcessMemory", ptr, hproc, ptr, dwdata, ptr, &nfo, uptr, sznfo, uptr, 0)
+  _hwnd := numget(nfo, 0, ptr)
+  winget, _process, processname, ahk_id %_hwnd%
+  if process = %_process%
+  {
+    dllcall("ReadProcessMemory", ptr, hproc, ptr, istring, ptr, &tip, uptr, sztip, uptr, 0)
+    dllcall("VirtualFreeEx", ptr, hproc, ptr, prb, uptr, 0, uint, 0x8000)
+    dllcall("CloseHandle", ptr, hproc)
+    sendmessage, 0x416, a_index-1, 0, toolbarwindow32%index%, ahk_class NotifyIconOverflowWindow ; TB_DELETEBUTTON
+    sendmessage, 0x1a, 0, 0,, ahk_class NotifyIconOverflowWindow ; WM_SETTINGCHANGE
+  }
+}
+detecthiddenwindows off
 return
 
 exit:
