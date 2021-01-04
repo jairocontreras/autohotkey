@@ -1,6 +1,5 @@
-; run as administrator
+menu, tray, icon, images\volume.png
 
-menu, tray, icon, images\media.png
 detecthiddenwindows on
 
 #if mouseisover("ahk_class Shell_TrayWnd")
@@ -12,7 +11,7 @@ wheeldown::
 send {volume_down}
 return
 
-mbutton::
+~mbutton::
 winget, pid, pid, ahk_class Shell_TrayWnd
 hproc := dllcall("OpenProcess", uint, 0x38, int, 0, uint, pid)
 prb := dllcall("VirtualAllocEx", ptr, hproc, ptr, 0, uptr, 20, uint, 0x1000, uint, 0x4)
@@ -45,16 +44,3 @@ mouseisover(wintitle) {
   mousegetpos,,, win
   return winexist(wintitle " ahk_id" win)
 }
-
-#enter::
-#numpadenter::
-send {media_play_pause}
-return
-
-#^left::
-send {media_prev}
-return
-
-#^right::
-send {media_next}
-return
