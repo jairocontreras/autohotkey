@@ -41,13 +41,12 @@ detecthiddenwindows on
 winget, pid, pid, ahk_class NotifyIconOverflowWindow
 hproc := dllcall("OpenProcess", uint, 0x38, int, 0, uint, pid)
 prb := dllcall("VirtualAllocEx", ptr, hproc, ptr, 0, uptr, 20, uint, 0x1000, uint, 0x4)
-index = 1
-sendmessage, 0x418, 0, 0, toolbarwindow32%index%, ahk_class NotifyIconOverflowWindow ; TB_BUTTONCOUNT
+sendmessage, 0x418, 0, 0, toolbarwindow321, ahk_class NotifyIconOverflowWindow ; TB_BUTTONCOUNT
 szbtn := varsetcapacity(btn, (a_is64bitos ? 32 : 20), 0)
 sznfo := varsetcapacity(nfo, (a_is64bitos ? 32 : 24), 0)
 sztip := varsetcapacity(tip, 128 * 2, 0)
 loop %errorlevel% {
-  sendmessage, 0x417, a_index-1, prb, toolbarwindow32%index%, ahk_class NotifyIconOverflowWindow ; TB_GETBUTTON
+  sendmessage, 0x417, a_index-1, prb, toolbarwindow321, ahk_class NotifyIconOverflowWindow ; TB_GETBUTTON
   dllcall("ReadProcessMemory", ptr, hproc, ptr, prb, ptr, &btn, uptr, szbtn, uptr, 0)
   dwdata := numget(btn, (a_is64bitos ? 16 : 12))
   istring := numget(btn, (a_is64bitos ? 24 : 16), ptr)
@@ -56,13 +55,12 @@ loop %errorlevel% {
   winget, _process, processname, ahk_id %_hwnd%
   if process = %_process%
   {
-    dllcall("ReadProcessMemory", ptr, hproc, ptr, istring, ptr, &tip, uptr, sztip, uptr, 0)
-    dllcall("VirtualFreeEx", ptr, hproc, ptr, prb, uptr, 0, uint, 0x8000)
-    dllcall("CloseHandle", ptr, hproc)
-    sendmessage, 0x416, a_index-1, 0, toolbarwindow32%index%, ahk_class NotifyIconOverflowWindow ; TB_DELETEBUTTON
+    sendmessage, 0x416, a_index-1, 0, toolbarwindow321, ahk_class NotifyIconOverflowWindow ; TB_DELETEBUTTON
     sendmessage, 0x1a, 0, 0,, ahk_class NotifyIconOverflowWindow ; WM_SETTINGCHANGE
   }
 }
+dllcall("VirtualFreeEx", ptr, hproc, ptr, prb, uptr, 0, uint, 0x8000)
+dllcall("CloseHandle", ptr, hproc)
 detecthiddenwindows off
 return
 
