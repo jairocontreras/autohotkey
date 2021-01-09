@@ -1,5 +1,5 @@
 setbatchlines -1
-menu, tray, icon, images\alwaysontop.png
+menu, tray, icon, images\always on top.png
 menu, tray, nostandard
 menu, tray, add, Edit
 menu, tray, add, Exit

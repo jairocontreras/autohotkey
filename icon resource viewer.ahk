@@ -1,6 +1,6 @@
 #notrayicon
 #singleinstance off
-menu, tray, icon, images\iconresview.ico
+menu, tray, icon, images\icon resource viewer.ico
 coordmode, tooltip, client
 BS_NOTIFY = 0x4000
 gui +hwndhwnd +minsize298x114 +maxsizex114 +resize
