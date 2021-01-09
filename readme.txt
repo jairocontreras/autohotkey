@@ -1,3 +1,2 @@
-1. Download ahk file
-2. Go to images and download icon
-3. Create images folder in your computer and place icon
+1. Download ahk file and icon from images folder
+2. Use the same file structure in your computer
