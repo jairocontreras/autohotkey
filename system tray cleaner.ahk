@@ -1,6 +1,6 @@
 #persistent
 setbatchlines -1
-menu, tray, icon, images\system tray.png
+menu, tray, icon, images\system tray cleaner.png
 menu, tray, nostandard
 menu, tray, add, Edit
 menu, tray, add, Exit
