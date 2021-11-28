@@ -1,4 +1,4 @@
 #notrayicon
 detecthiddenwindows on
-loop, read, %appdata%\inbox\pid.txt
+loop, read, pid.txt
   winclose ahk_pid %a_loopreadline%

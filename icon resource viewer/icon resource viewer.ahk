@@ -1,6 +1,6 @@
 #notrayicon
 #singleinstance off
-menu, tray, icon, images\icon resource viewer.ico
+menu, tray, icon, icon resource viewer.ico
 coordmode, tooltip, client
 BS_NOTIFY = 0x4000
 gui +hwndhwnd +minsize298x114 +maxsizex114 +resize
@@ -56,7 +56,7 @@ return
 
 help_index:
 guicontrolget, help_index, pos
-tooltip, press up or down to browse, help_indexx+22, help_indexy+1
+tooltip, press up and down to browse, help_indexx+22, help_indexy+1
 return
 
 tooltip() {

@@ -1,5 +1,5 @@
 #notrayicon
-process = %appdata%\inbox\pid.txt
+process = pid.txt
 filedelete %process%
 loop, read, accounts.txt
 {

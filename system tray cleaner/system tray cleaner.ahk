@@ -1,6 +1,6 @@
 #persistent
 setbatchlines -1
-menu, tray, icon, images\system tray cleaner.png
+menu, tray, icon, system tray cleaner.png
 menu, tray, nostandard
 menu, tray, add, Edit
 menu, tray, add, Exit
@@ -9,7 +9,7 @@ gui +hwndhwnd
 dllcall("RegisterShellHookWindow", uint, hwnd)
 onmessage(dllcall("RegisterWindowMessage", str, "shellhook"), "shellmessage")
 
-; when you open app(s) before running script
+; for open apps before running script
 loop, read, apps.txt
 {
   process = % strsplit(a_loopreadline, "*")[1] ".exe"

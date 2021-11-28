@@ -1,14 +1,18 @@
 menu, tray, icon, images\_empty.png
-menu, tray, tip, Loading... hover again
+menu, tray, tip, Loading...
 menu, tray, nostandard
 menu, tray, add, Check now, check
 menu, tray, add, Exit
 onmessage(0x404, "AHK_NOTIFYICON")
-xml = %appdata%\inbox\%1%.xml
+xml = %1%.xml
+if %3%
+  icon = %3%
+else
+  icon = red
 if %4%
   frequency = %4%
 else
-  frequency = 1
+  frequency = 30
 loop {
   gosub check
   sleep frequency*1000*60
@@ -23,7 +27,7 @@ AHK_NOTIFYICON(wparam, lparam) {
 check:
 urldownloadtofile, https://%1%:%2%@mail.google.com/mail/feed/atom, %xml%
 if errorlevel {
-  icon = _error.png
+  _icon = _error
   tooltip = No internet connection
 }
 else {
@@ -32,16 +36,16 @@ else {
   unread := substr(fullcount, 12)
   if unread = 0
   {
-    icon = _empty.png
+    _icon = _empty
     tooltip = No new mail
   }
   else if unread > 0
   {
-    icon = %3%
+    _icon = %icon%
     tooltip = %unread% unread
   }
   else {
-    icon = _error.png
+    _icon = _error
     regexmatch(contents, "i)<title>unauthorized", 401)
     regexmatch(contents, "i)<title>error 502", 502)
     if 401
@@ -53,8 +57,8 @@ else {
     tooltip .= " error"
   }
 }
-menu, tray, icon, images\%icon%,, 1
-menu, tray, tip, %1%@gmail.com`n%tooltip%
+menu, tray, icon, images\%_icon%.png,, 1
+menu, tray, tip, %1%`n%tooltip%
 if tooltip = Unauthorized
 {
   menu, tray, delete, check now

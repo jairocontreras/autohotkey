@@ -1,4 +1,4 @@
-;menu, tray, icon, images\snap.png
+menu, tray, icon, images\snap.png
 sysget, screen, monitorworkarea
 global WS_SIZEBOX = 0x40000
 global w_half := a_screenwidth/2
