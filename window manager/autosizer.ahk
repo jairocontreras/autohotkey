@@ -32,8 +32,11 @@ run explorer %file%
 return
 
 maximize:
-winmove,,, -7, 0, a_screenwidth+14, screenbottom+7
-winmaximize
+winget, dwstyle, style
+if dwstyle & 0x10000 { ; WS_MAXIMIZEBOX
+  winmove,,, -7, 0, a_screenwidth+14, screenbottom+7
+  winmaximize
+}
 return
 
 exit:
