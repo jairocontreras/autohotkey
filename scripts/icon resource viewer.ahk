@@ -7,7 +7,7 @@ _file.onevent("change", change)
 _gui.add("text", "section xm y+m4", "Index:")
 index := _gui.add("edit", "x+5 ys-4")
 index.onevent("change", change)
-_gui.add("updown")
+_gui.add("updown", "range0-999")
 icon := _gui.add("pic", "h32 w32 ym10")
 _gui.show()
 
