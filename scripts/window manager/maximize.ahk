@@ -1,0 +1,47 @@
+trayseticon("images\maximize.png")
+processsetpriority "h"
+id := ""
+hookprocadr := callbackcreate(capturewinevent, "f")
+hwineventhook := setwineventhook(0x1, 0x17, 0, hookprocadr, 0, 0, 0)
+onexit exit
+
+capturewinevent(hwineventhook, event, hwnd) {
+  if event = 22 ; EVENT_SYSTEM_MINIMIZESTART
+    global id := hwnd
+}
+
+setwineventhook(eventmin, eventmax, hmodwineventproc, lpfnwineventproc, idprocess, idthread, dwflags) {
+  dllcall("ole32\CoInitialize", "uint", 0)
+  return dllcall("SetWinEventHook", "uint", eventmin, "uint", eventmax, "uint", hmodwineventproc, "uint", lpfnwineventproc, "uint", idprocess, "uint", idthread, "uint", dwflags)
+}
+
+exit(*) {
+  dllcall("UnhookWinEvent", "uint", hwineventhook)
+  dllcall("GlobalFree", "uint", hookprocadr)
+}
+
+#space::
+{
+  winexist("a")
+  if wingetstyle() & 0x10000 { ; WS_MAXIMIZEBOX
+    if wingetminmax() = 0 ; normal
+      winmaximize
+    else
+      winrestore
+  }
+}
+
+#^down::
+{
+winexist("a")
+if wingetstyle() & 0x20000 ; WS_MINIMIZEBOX
+  winminimize
+}
+
+#^up::
+{
+  try { ; if hotkey is used before minimizing any window
+    if wingetminmax(id) = -1 ; minimized, not maximized
+      winrestore id
+  }
+}

@@ -1,9 +1,0 @@
-Windows Registry Editor Version 5.00
-
-; sign out
-
-[HKEY_CURRENT_USER\Control Panel\Desktop]
-; drag to left or right to snap; drag to top to maximize
-"DockMoving"="0"
-; resize to top or bottom to snap
-"SnapSizing"="0"
