@@ -1,5 +1,5 @@
-trayseticon("images\maximize.png")
 processsetpriority "h"
+trayseticon("images\maximize.png")
 id := ""
 hookprocadr := callbackcreate(capturewinevent, "f")
 hwineventhook := setwineventhook(0x1, 0x17, 0, hookprocadr, 0, 0, 0)
@@ -31,14 +31,14 @@ exit(*) {
   }
 }
 
-#^down::
+#end::
 {
 winexist("a")
 if wingetstyle() & 0x20000 ; WS_MINIMIZEBOX
   winminimize
 }
 
-#^up::
+#home::
 {
   try { ; if hotkey is used before minimizing any window
     if wingetminmax(id) = -1 ; minimized, not maximized

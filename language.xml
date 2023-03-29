@@ -12,15 +12,15 @@
       <!--keyboard-->
       <Keywords name="Keywords3">down enter left right space up</Keywords>
       <!--functions-->
-      <Keywords name="Keywords4">global msgbox numput onexit persistent processsetpriority return send wingetpos winmaximize winminimize winmove winrestore winsetalwaysontop</Keywords>
+      <Keywords name="Keywords4">global loop msgbox numput onmessage onexit persistent processsetpriority read return send wingetpos winmaximize winminimize winmove winrestore winsetalwaysontop</Keywords>
       <!--functions()-->
-      <Keywords name="Keywords5">add buffer dllcall gui instr isinteger numget onevent show trayseticon wingetminmax wingetstyle winexist</Keywords>
+      <Keywords name="Keywords5">add buffer dllcall gui instr isinteger loadpicture numget onevent opt sendmessage show trayseticon wingetminmax wingetprocessname wingetstyle winexist</Keywords>
       <!--properties-->
       <Keywords name="Keywords6">marginy text value visible</Keywords>
       <!--values-->
       <Keywords name="Keywords7">false true</Keywords>
       <!--variables-->
-      <Keywords name="Keywords8">a_cursor a_screenwidth</Keywords>
+      <Keywords name="Keywords8">a_cursor a_loopreadline a_screenwidth</Keywords>
     </KeywordLists>
     <Styles>
       <WordsStyle name="LINE COMMENTS" fgColor="008000"/>

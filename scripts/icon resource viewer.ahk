@@ -1,5 +1,8 @@
-#notrayicon
-_gui := gui()
+icon := "images/icon resource viewer.ico"
+trayseticon(icon)
+_gui := gui(, "Icon Resource Viewer")
+sendmessage(0x0080, 1, loadpicture(icon, "w24", &imagetype), _gui) ; WM_SETICON, ICON_BIG
+_gui.opt("-minimizebox")
 _gui.marginy := 10
 _gui.add("text", "ym4", "File:")
 _file := _gui.add("edit", "x+m5 ym")

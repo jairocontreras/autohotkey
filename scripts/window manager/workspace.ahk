@@ -1,6 +1,6 @@
-trayseticon("images\workspace.png")
 persistent
 processsetpriority "h"
+trayseticon("images\workspace.png")
 workarea := buffer(16)
 dllcall("SystemParametersInfo", "uint", 0x0030, "uint", 0, "ptr", workarea, "uint", 0)
 screenheight := numget(workarea, 12, "int")
