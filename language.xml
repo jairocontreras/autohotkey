@@ -10,7 +10,7 @@
       <!--expressions-->
       <Keywords name="Keywords2">and catch else if or try</Keywords>
       <!--keyboard-->
-      <Keywords name="Keywords3">down enter left right space up</Keywords>
+      <Keywords name="Keywords3">down enter left pgdn pgup right space up</Keywords>
       <!--functions-->
       <Keywords name="Keywords4">global loop msgbox numput onmessage onexit persistent processsetpriority read return send wingetpos winmaximize winminimize winmove winrestore winsetalwaysontop</Keywords>
       <!--functions()-->

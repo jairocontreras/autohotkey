@@ -1,6 +1,9 @@
+#notrayicon
 icon := "images/icon resource viewer.ico"
+; window
 trayseticon(icon)
 _gui := gui(, "Icon Resource Viewer")
+; taskbar
 sendmessage(0x0080, 1, loadpicture(icon, "w24", &imagetype), _gui) ; WM_SETICON, ICON_BIG
 _gui.opt("-minimizebox")
 _gui.marginy := 10

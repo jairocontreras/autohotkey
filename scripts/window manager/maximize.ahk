@@ -31,14 +31,14 @@ exit(*) {
   }
 }
 
-#end::
+#pgdn::
 {
 winexist("a")
 if wingetstyle() & 0x20000 ; WS_MINIMIZEBOX
   winminimize
 }
 
-#home::
+#pgup::
 {
   try { ; if hotkey is used before minimizing any window
     if wingetminmax(id) = -1 ; minimized, not maximized
