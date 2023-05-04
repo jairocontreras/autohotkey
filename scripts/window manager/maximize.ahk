@@ -40,7 +40,8 @@ if wingetstyle() & 0x20000 ; WS_MINIMIZEBOX
 
 #pgup::
 {
-  try { ; if hotkey is used before minimizing any window
+  ; target window not found
+  try {
     if wingetminmax(id) = -1 ; minimized, not maximized
       winrestore id
   }
