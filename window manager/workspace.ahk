@@ -1,9 +1,7 @@
 persistent
 processsetpriority "h"
 trayseticon("images\workspace.png")
-workarea := buffer(16)
-dllcall("SystemParametersInfo", "uint", 0x0030, "uint", 0, "ptr", workarea, "uint", 0)
-screenheight := numget(workarea, 12, "int")
+monitorgetworkarea(,,,, &screenheight)
 hookprocadr := callbackcreate(capturewinevent, "f")
 hwineventhook := setwineventhook(0x1, 0x17, 0, hookprocadr, 0, 0, 0)
 onexit exit

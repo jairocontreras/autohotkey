@@ -1,7 +1,5 @@
 trayseticon("images\snap.png")
-workarea := buffer(16)
-dllcall("SystemParametersInfo", "uint", 0x0030, "uint", 0, "ptr", workarea, "uint", 0) ; SPI_GETWORKAREA
-screenheight := numget(workarea, 12, "int")
+monitorgetworkarea(,,,, &screenheight)
 screenwidth_half := a_screenwidth/2
 screenheight_half := screenheight/2
 #left::snap("left")

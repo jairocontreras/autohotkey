@@ -14,7 +14,7 @@ captureshellmessage(wparam, lparam, msg, hwnd) {
     }
     else {
       loop read "apps.txt" {
-        if process = a_loopreadline ".exe"  {
+        if process = a_loopreadline ".exe" {
           notifyicondata := buffer(24)
           numput "ptr", 24, notifyicondata ; cbsize
           numput "uint", id, notifyicondata, 8 ; hwnd
