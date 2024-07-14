@@ -1,6 +1,7 @@
-persistent
 processsetpriority "h"
+persistent
 trayseticon("images\workspace.png")
+coordmode "mouse"
 monitorgetworkarea(,,,, &screenheight)
 hookprocadr := callbackcreate(capturewinevent, "f")
 hwineventhook := setwineventhook(0x1, 0x17, 0, hookprocadr, 0, 0, 0)
@@ -10,54 +11,55 @@ capturewinevent(hwineventhook, event, hwnd) {
   if event = 10 ; EVENT_SYSTEM_MOVESIZESTART
     global cursor := a_cursor
   else if event = 11 { ; EVENT_SYSTEM_MOVESIZEEND
-    winexist(hwnd)
-    ; e.g. merge tabs
-    try
-      wingetpos &x, &y, &w, &h
-    catch {
-    }
-    else {
-      x += 7
-      w -= 14
-      h -= 7
-      x_right := x+w
-      ; move
-      if cursor = "arrow" {
-        y_bottom := y+h
-        if x < 0
-          x := 0
-        else if x_right > a_screenwidth
-          x -= x_right - a_screenwidth
-        if y < 0
-          y := 0
-        else if y_bottom > screenheight
-          y -= y_bottom - screenheight
-      }
-      ; resize left/right
-      else if cursor = "sizewe" {
-        if x <= 7 {
-          w += x
-          x := 0
+    if winexist(hwnd) {
+      mousegetpos , &mouse_y
+      if mouse_y = 0 && cursor = "arrow"
+        winmaximize
+      else {
+        ; merge tabs
+        if !winexist()
+          return
+        wingetpos &x, &y, &w, &h
+        x += 7
+        w -= 14
+        h -= 7
+        x_right := x+w
+        ; move
+        if cursor = "arrow" {
+          y_bottom := y+h
+          if x < 0
+            x := 0
+          else if x_right > a_screenwidth
+            x -= x_right - a_screenwidth
+          if y_bottom > screenheight
+            y -= y_bottom - screenheight
         }
-        if x_right >= a_screenwidth - 7
-          w += a_screenwidth - x_right
+        ; resize left/right
+        else if cursor = "sizewe" {
+          if x <= 7 {
+            w += x
+            x := 0
+          }
+          if x_right >= a_screenwidth - 7
+            w += a_screenwidth - x_right
+        }
+        ; resize top/bottom
+        else if cursor = "sizens" {
+          ; restore to screen
+          if y < 0
+            y := 0
+          if h > screenheight
+            h -= h - screenheight
+          ; fill to edge
+          y_bottom := y+h
+          if y_bottom >= screenheight - 7
+            h += screenheight - y_bottom
+        }
+        x -= 7
+        w += 14
+        h += 7
+        winmove x, y, w, h
       }
-      ; resize top/bottom
-      else if cursor = "sizens" {
-        ; restore to screen
-        if y < 0
-          y := 0
-        if h > screenheight
-          h -= h - screenheight
-        ; fill to edge
-        y_bottom := y+h
-        if y_bottom >= screenheight - 7
-          h += screenheight - y_bottom
-      }
-      x -= 7
-      w += 14
-      h += 7
-      winmove x, y, w, h
     }
   }
 }

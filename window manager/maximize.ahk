@@ -15,11 +15,6 @@ setwineventhook(eventmin, eventmax, hmodwineventproc, lpfnwineventproc, idproces
   return dllcall("SetWinEventHook", "uint", eventmin, "uint", eventmax, "uint", hmodwineventproc, "uint", lpfnwineventproc, "uint", idprocess, "uint", idthread, "uint", dwflags)
 }
 
-exit(*) {
-  dllcall("UnhookWinEvent", "uint", hwineventhook)
-  dllcall("GlobalFree", "uint", hookprocadr)
-}
-
 #space::
 {
   winexist("a")
@@ -33,16 +28,20 @@ exit(*) {
 
 #pgdn::
 {
-winexist("a")
-if wingetstyle() & 0x20000 ; WS_MINIMIZEBOX
-  winminimize
+  winexist("a")
+  if wingetstyle() & 0x20000 ; WS_MINIMIZEBOX
+    winminimize
 }
 
 #pgup::
 {
-  ; target window not found
-  try {
-    if wingetminmax(id) = -1 ; minimized, not maximized
-      winrestore id
+  if winexist(id) {
+    if wingetminmax() = -1 ; minimized, not maximized
+      winrestore
   }
+}
+
+exit(*) {
+  dllcall("UnhookWinEvent", "uint", hwineventhook)
+  dllcall("GlobalFree", "uint", hookprocadr)
 }
