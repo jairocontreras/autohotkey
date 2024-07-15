@@ -14,11 +14,17 @@ onmessage dllcall("RegisterWindowMessage", "str", "shellhook"), captureshellmess
 captureshellmessage(wparam, lparam, *) {
   if wparam = 1 { ; HSHELL_WINDOWCREATED
     if winexist("ahk_id " lparam) {
-      process := wingetprocessname()
-      app := strreplace(process, ".exe", "")
-      loop read config {
-        if app = a_loopreadline
-          clean(wingetid())
+      try
+        process := wingetprocessname()
+      ; access is denied
+      catch {
+      }
+      else {
+        app := strreplace(process, ".exe", "")
+        loop read config {
+          if app = a_loopreadline
+            clean(wingetid())
+        }
       }
     }
   }
