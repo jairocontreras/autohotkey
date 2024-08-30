@@ -4,6 +4,7 @@ id := ""
 hookprocadr := callbackcreate(capturewinevent, "f")
 hwineventhook := setwineventhook(0x1, 0x17, 0, hookprocadr, 0, 0, 0)
 onexit exit
+return
 
 capturewinevent(hwineventhook, event, hwnd) {
   if event = 22 ; EVENT_SYSTEM_MINIMIZESTART

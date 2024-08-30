@@ -16,6 +16,7 @@ index.onevent("change", change)
 b_gui.add("updown", "range0-999")
 icon := b_gui.add("pic", "h32 w32 ym10")
 b_gui.show()
+return
 
 change(*) {
   if instr(b_file.text, ".") and isinteger(index.text) {

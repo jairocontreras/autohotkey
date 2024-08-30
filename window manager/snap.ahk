@@ -11,6 +11,7 @@ screenheight_half := screenheight/2
 #+up::
 #+down::extend("vertical")
 #enter::resize()
+return
 
 snap(direction) {
   hwnd := winexist("a")

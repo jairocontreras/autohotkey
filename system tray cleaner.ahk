@@ -10,6 +10,7 @@ loop read config {
 b_gui := gui()
 dllcall("RegisterShellHookWindow", "uint", b_gui.hwnd)
 onmessage dllcall("RegisterWindowMessage", "str", "shellhook"), captureshellmessage
+return
 
 captureshellmessage(wparam, lparam, *) {
   if wparam = 1 { ; HSHELL_WINDOWCREATED
