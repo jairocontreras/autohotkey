@@ -7,8 +7,8 @@ loop read config {
     clean(wingetid())
 }
 
-b_gui := gui()
-dllcall("RegisterShellHookWindow", "uint", b_gui.hwnd)
+my_gui := gui()
+dllcall("RegisterShellHookWindow", "uint", my_gui.hwnd)
 onmessage dllcall("RegisterWindowMessage", "str", "shellhook"), captureshellmessage
 return
 
