@@ -20,11 +20,11 @@ return
 
 change(*) {
   if instr(my_file.text, ".") and isinteger(index.text) {
-    _index := index.text
-    if _index >= 0
-      _index += 1
+    my_index := index.text
+    if my_index >= 0
+      my_index += 1
     try
-      icon.value := "*icon" _index " " my_file.text
+      icon.value := "*icon" my_index " " my_file.text
     catch
       icon.visible := 0
     else
