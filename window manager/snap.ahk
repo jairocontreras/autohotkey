@@ -29,7 +29,9 @@ snap(direction) {
     else ; down
       y := screenheight_half
     if direction = "left" or direction = "right" {
-      if (y_current = 0 or y_current = screenheight_half) and (w_current = a_screenwidth or w_current = screenwidth_half) and h_current = screenheight_half {
+      if ((y_current = 0) or (y_current = screenheight_half)) and
+         ((w_current = a_screenwidth) or (w_current = screenwidth_half)) and
+          (h_current = screenheight_half) {
         if y_current = screenheight_half
           y := screenheight_half
         else
@@ -43,7 +45,9 @@ snap(direction) {
       w := screenwidth_half
     }
     else { ; up or down
-      if (x_current = 0 or x_current = screenwidth_half) and w_current = screenwidth_half and (h_current = screenheight or h_current = screenheight_half) {
+      if ((x_current = 0) or (x_current = screenwidth_half)) and
+         ((h_current = screenheight) or (h_current = screenheight_half)) and
+          (w_current = screenwidth_half) {
         if x_current = screenwidth_half
           x := screenwidth_half
         else

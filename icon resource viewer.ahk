@@ -15,7 +15,7 @@ index := my_gui.add("edit", "x+5 ys-4")
 index.onevent("change", change)
 my_gui.add("updown", "range0-999")
 icon := my_gui.add("pic", "h32 w32 ym10")
-my_gui.show()
+my_gui.show
 return
 
 change(*) {

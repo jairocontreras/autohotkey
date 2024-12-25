@@ -14,7 +14,7 @@ capturewinevent(hwineventhook, event, hwnd) {
   else if event = 11 { ; EVENT_SYSTEM_MOVESIZEEND
     if winexist(hwnd) {
       mousegetpos , &mouse_y
-      if mouse_y = 0 && cursor = "arrow"
+      if (mouse_y = 0) and (cursor = "arrow")
         winmaximize
       else {
         ; merge tabs
