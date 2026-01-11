@@ -1,7 +1,9 @@
 trayseticon("images\snap.png")
 monitorgetworkarea(,,,, &screenheight)
-screenwidth_half := a_screenwidth/2
 screenheight_half := screenheight/2
+screenwidth_half := a_screenwidth/2
+return
+
 #left::snap("left")
 #right::snap("right")
 #up::snap("up")
@@ -11,7 +13,7 @@ screenheight_half := screenheight/2
 #+up::
 #+down::extend("vertical")
 #enter::resize()
-return
+#c::center()
 
 snap(direction) {
   hwnd := winexist("a")
@@ -89,6 +91,17 @@ extend(direction) {
 
 resize() {
   winexist("a")
-  if wingetstyle() & 0x40000
-    winmove ,, (a_screenwidth/2)+14, (a_screenheight*.7)+7
+  if (wingetstyle() & 0x40000) and (wingetminmax() = 0)
+    winmove ,, (a_screenwidth/2)+14, (a_screenheight*.75)+7
+}
+
+center() {
+  winexist("a")
+  wingetpos ,, &w_current, &h_current
+  w_current -= 14
+  h_current -= 7
+  x := (a_screenwidth - w_current)/2
+  y := (screenheight - h_current)/2
+  x -= 7
+  winmove x, y
 }

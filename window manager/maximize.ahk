@@ -20,7 +20,7 @@ setwineventhook(eventmin, eventmax, hmodwineventproc, lpfnwineventproc, idproces
 {
   winexist("a")
   if wingetstyle() & 0x10000 { ; WS_MAXIMIZEBOX
-    if wingetminmax() = 0 ; normal
+    if wingetminmax() = 0
       winmaximize
     else
       winrestore
@@ -37,7 +37,7 @@ setwineventhook(eventmin, eventmax, hmodwineventproc, lpfnwineventproc, idproces
 #pgup::
 {
   if winexist(id) {
-    if wingetminmax() = -1 ; minimized, not maximized
+    if wingetminmax() = -1
       winrestore
   }
 }
