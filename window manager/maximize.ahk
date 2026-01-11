@@ -36,10 +36,8 @@ setwineventhook(eventmin, eventmax, hmodwineventproc, lpfnwineventproc, idproces
 
 #pgup::
 {
-  if winexist(id) {
-    if wingetminmax() = -1
-      winrestore
-  }
+  if winexist(id) and (wingetminmax() = -1)
+    winrestore
 }
 
 exit(*) {
